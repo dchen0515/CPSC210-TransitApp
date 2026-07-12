@@ -1,10 +1,10 @@
-# My Personal Project: a Bus Operator's Console
+# My Personal Project: a Bus Operator's Information Console
 
 ## Project Description:
-(fill this in later)
+My personal project is a bus operator's information console, modelled from real consoles found on all TransLink buses in the Metro Vancouver region. It will include features like a pre-loaded bus stop list for a particular route, a view of the upcoming 3 stops on the screen and the route name + number, and a schedule adherence values calculated from a simulated route schedule, as well as Trip Start and Trip End screens that come up when the trip is supposed to start/end. In addition, it will also feature a 6-button menu at the bottom allowing the operator to view rider statistics like the number of passengers paying their fare (PRTT, or Passenger Real Time Transit view), view the main screen (RTT, or Real Time Transit view), log pass-up and fare not paid events, and simulate contacting a central "Transit Communications" network by radio. The intended user is a bus operator interacting with the console while driving the bus. This project is of interest to me because I have been passionate about public transit in the Metro Vancouver area since I was two years old, when my parents first took me to ride the Canada Line when it opened in 2009. Recently, I have become more interested in the computational side of features of TransLink buses, such as the information console that my project is modelled from, as well as the programs that go into running the LED displays on buses.
 
-*User Stories*
+**User Stories**
 - As a user, I want to be able to add a bus stop to an existing list of stops on a bus route.
 - As a user, I want to be able to view the a list of the three upcoming bus stops for a particular route.
-- As a user, I want to be able to log pass up and fare not paid events incrementally.
+- As a user, I want to be able to log pass-up and fare not paid events incrementally.
 - As a user, I want to be able to simulate transferring operator messages (e.g. road blocks, unruly passengers) from the console to a simulated central "Transit Communications" facility.
