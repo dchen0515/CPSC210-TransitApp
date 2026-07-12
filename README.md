@@ -1,10 +1,10 @@
-# My Personal Project
+# My Personal Project: a Bus Operator's Console
 
-## A subtitle
+## Project Description:
+(fill this in later)
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
-
-An example of text with **bold** and *italic* fonts.  
+*User Stories*
+- As a user, I want to be able to add a bus stop to an existing list of stops on a bus route.
+- As a user, I want to be able to view the a list of the three upcoming bus stops for a particular route.
+- As a user, I want to be able to log pass up and fare not paid events incrementally.
+- As a user, I want to be able to simulate transferring operator messages (e.g. road blocks, unruly passengers) from the console to a simulated central "Transit Communications" facility.
