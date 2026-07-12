@@ -6,5 +6,5 @@ My personal project is a bus operator's information console, modelled from real 
 **User Stories**
 - As a system administrator, I want to be able to add a bus stop to an existing list of stops on a bus route.
 - As a bus operator, I want be able to view the full list of all the stops on a particular route to verify the full sequence of stops.
-- As a bus operator, I want to be able to log pass-up and fare not paid events incrementally.
-- As a bus operator, I want to be able to simulate contacting Transit Communications by sending operational messages (e.g. road blocks, unruly passengers) through a Radio button.
+- As a system administrator, I want to be able to modify a stop name so it reflects changes that may apply to multiple routes in the system.
+- As a bus operator, I want to be able to simulate contacting Transit Communications by entering an operational message to practice sending radio communications.
