@@ -17,9 +17,15 @@ public class Stop {
         this.isTimingPoint = isTimingPoint;
     }
 
-    // REQUIRES: stopID is a 5-digit integer beginning with either 5 or 6
+    // REQUIRES: stopID is a 5-digit positive integer beginning with either 5 or 6
     // EFFECTS: Return a formatted string describing a bus stop
     public String returnStop() {
         return direction + " " + stopName + " - Stop number: " + stopID + " - Timing point? " + isTimingPoint;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: changes a stop name to reflect changes that may apply to multiple routes in the system
+    public void modifyStopName(String newName) {
+         // stub
     }
 }
