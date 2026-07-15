@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StopTest {
-    
+
     private Stop s;
-    
+
     @BeforeEach
     void runBefore() {
         s = new Stop("NB", "MAIN ST AT E 41 AVE", 50155, true);
@@ -24,7 +24,8 @@ public class StopTest {
         assertTrue(s.getIsTimingPoint());
     }
 
-    // EFFECTS: verifies that the constructor throws IllegalArgumentException for invalid direction values
+    // EFFECTS: verifies that the constructor throws IllegalArgumentException for
+    // invalid direction values
     @Test
     void testConstructorRejectsInvalidDirection() {
         assertThrows(IllegalArgumentException.class, () -> {
@@ -32,7 +33,8 @@ public class StopTest {
         });
     }
 
-    // EFFECTS: verifies that the constructor throws IllegalArgumentException for invalid stop ID values
+    // EFFECTS: verifies that the constructor throws IllegalArgumentException for
+    // invalid stop ID values
     @Test
     void testConstructorRejectsInvalidStopID() {
         assertThrows(IllegalArgumentException.class, () -> {
@@ -41,7 +43,8 @@ public class StopTest {
     }
 
     // REQUIRES: direction, stop name, and stop ID are all valid inputs
-    // EFFECTS: verifies that constructor correctly stores a false timing point value
+    // EFFECTS: verifies that constructor correctly stores a false timing point
+    // value
     @Test
     void testConstructorHandlesTimingPointFalse() {
         Stop s1 = new Stop("NB", "MAIN ST AT E 57 AVE", 50147, false);
@@ -49,7 +52,8 @@ public class StopTest {
     }
 
     // REQUIRES: this Stop has valid field values
-    // EFFECTS: verifies that returnStop produces a formatted string with all stop information
+    // EFFECTS: verifies that returnStop produces a formatted string with all stop
+    // information
     @Test
     void testReturnStopFormatting() {
         String result = s.returnStop();
@@ -72,7 +76,8 @@ public class StopTest {
 
     // REQUIRES: newName is not an empty string
     // MODIFIES: this
-    // EFFECTS: verifies that modifyStopName does not change direction, stop ID, or timing point status
+    // EFFECTS: verifies that modifyStopName does not change direction, stop ID, or
+    // timing point status
     @Test
     void testModifyStopNameLeavesOtherFieldsUnchanged() {
         s.modifyStopName("MAIN ST AT 42 AVE");
@@ -81,11 +86,12 @@ public class StopTest {
         assertTrue(s.getIsTimingPoint());
     }
 
-    // EFFECTS: verifies that modifyStopName throws IllegalArgumentException when given an empty string
+    // EFFECTS: verifies that modifyStopName throws IllegalArgumentException when
+    // given an empty string
     @Test
     void testModifyStopNameRejectsEmptyName() {
         assertThrows(IllegalArgumentException.class, () -> {
-            s.modifyStopName("");;
+            s.modifyStopName("");
         });
     }
 }

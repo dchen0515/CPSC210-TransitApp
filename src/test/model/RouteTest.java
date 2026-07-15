@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class RouteTest {
     private Route r;
-    
+
     @BeforeEach
     void runBefore() {
         r = new Route(402, "TWO ROAD");
@@ -21,7 +21,8 @@ public class RouteTest {
         assertEquals("TWO ROAD", r.getRouteName());
     }
 
-    // EFFECTS: verifies that the constructor throws IllegalArgumentException for invalid route numbers 
+    // EFFECTS: verifies that the constructor throws IllegalArgumentException for
+    // invalid route numbers
     @Test
     void testConstructorRejectsInvalidRouteNumber() {
         assertThrows(IllegalArgumentException.class, () -> {
@@ -30,7 +31,8 @@ public class RouteTest {
     }
 
     // REQUIRES: this Route has valid route number and route name
-    // EFFECTS: verifies that makeBusRoute correctly returns a formatted string containing route information
+    // EFFECTS: verifies that makeBusRoute correctly returns a formatted string
+    // containing route information
     @Test
     void testMakeBusRouteFormatting() {
         String result = r.makeBusRoute();
@@ -48,7 +50,8 @@ public class RouteTest {
         assertTrue(r.getStops().contains(s1));
     }
 
-    // EFFECTS: verifies that addStop throws IllegalArgumentException when given null
+    // EFFECTS: verifies that addStop throws IllegalArgumentException when given
+    // null
     @Test
     void testAddStopRejectsNull() {
         assertThrows(IllegalArgumentException.class, () -> {
@@ -74,7 +77,8 @@ public class RouteTest {
     }
 
     // REQUIRES: this Route has no stops
-    // EFFECTS: verifies that listStops returns an empty string when no stops are present
+    // EFFECTS: verifies that listStops returns an empty string when no stops are
+    // present
     @Test
     void testListStopsEmptyList() {
         String emptyStopList = r.listStops();
@@ -83,7 +87,8 @@ public class RouteTest {
 
     // REQUIRES: message is not an empty string
     // MODIFIES: this
-    // EFFECTS: verifies that recordOperatorMessage stores the operator message correctly
+    // EFFECTS: verifies that recordOperatorMessage stores the operator message
+    // correctly
     @Test
     void testRecordOperatorMessageStoresMessage() {
         String msg = "Bus is too early!";
@@ -91,7 +96,8 @@ public class RouteTest {
         assertEquals(msg, r.getOperatorMessage());
     }
 
-    // EFFECTS: verifies that recordOperatorMessage throws IllegalArgumentException for empty messages 
+    // EFFECTS: verifies that recordOperatorMessage throws IllegalArgumentException
+    // for empty messages
     @Test
     void testRecordOperatorMessageRejectsEmptyMessage() {
         assertThrows(IllegalArgumentException.class, () -> {

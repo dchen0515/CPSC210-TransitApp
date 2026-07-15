@@ -10,7 +10,7 @@ public class Main {
 
     private Scanner input;
     private Route route;
-    
+
     // EFFECTS: runs the bus route application
     public static void main(String[] args) {
         new Main().runApp();
@@ -66,23 +66,80 @@ public class Main {
     // MODIFIES: this
     // EFFECTS: adds a stop to the route
     private void doAddStop() {
-        // stub
+        System.out.println("Enter direction (NB, SB, EB, WB):");
+        String direction = input.nextLine();
+
+        System.out.println("Enter stop name:");
+        String name = input.nextLine();
+
+        System.out.println("Enter stop ID (5-digit number starting with 5 or 6):");
+        int id = Integer.parseInt(input.nextLine());
+
+        System.out.println("Is this a timing point? (enter true/false only, case-sensitive):");
+        boolean timingPoint = Boolean.parseBoolean(input.nextLine());
+
+        // Construct the stop object
+        Stop s = new Stop(direction, name, id, timingPoint);
+        route.addStop(s);
+        System.out.println("Stop added.");
     }
 
     // EFFECTS: prints all stops
     private void doListStops() {
-        // stub
+        String result = route.listStops();
+
+        if (result.isEmpty()) {
+            System.out.println("No stops in list yet.");
+        } else {
+            System.out.println("Stops on this route:");
+            System.out.println(result);
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: modifies a stop name
     private void doModifyStop() {
-        // stub
+        System.out.println("Enter a stop ID to modify.");
+        int id = Integer.parseInt(input.nextLine());
+
+        Stop found = null;
+
+        for (Stop s : route.getStops()) {
+            if (s.getStopID() == id) {
+                found = s;
+                break;
+            }
+        }
+
+        if (found == null) {
+            System.out.println("Stop not found.");
+            return;
+        }
+
+        System.out.println("Enter new stop name:");
+        String newName = input.nextLine();
+
+        if (newName.isEmpty()) {
+            System.out.println("New stop name cannot be empty.");
+            return;
+        }
+
+        found.modifyStopName(newName);
+        System.out.println("Stop name updated.");
     }
 
     // MODIFIES: this
     // EFFECTS: records a bus operator message
     private void doRecordMessage() {
-        // stub
+        System.out.println("Enter operator message:");
+        String msg = input.nextLine();
+
+        if (msg.isEmpty()) {
+            System.out.println("Message cannot be empty.");
+            return;
+        }
+
+        route.recordOperatorMessage(msg);
+        System.out.println("Message recorded.");
     }
 }

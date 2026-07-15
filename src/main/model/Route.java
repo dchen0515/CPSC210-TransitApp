@@ -3,7 +3,6 @@ package model;
 import java.util.List;
 import java.util.ArrayList;
 
-
 // Represents a bus route with a direction, a name, and a list of stops on that route
 public class Route {
     private int routeNumber;
@@ -12,7 +11,8 @@ public class Route {
     private String operatorMessage;
 
     // REQUIRES: routeNumber is between 1 and 900 inclusive
-    // EFFECTS: constructs a Route object with a route number, route name, and list of stops
+    // EFFECTS: constructs a Route object with a route number, route name, and list
+    // of stops
     public Route(int routeNumber, String routeName) {
         if (routeNumber < 1 || routeNumber > 900) {
             throw new IllegalArgumentException("Invalid route number");

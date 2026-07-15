@@ -8,11 +8,13 @@ public class Stop {
     private int stopID;
     private boolean isTimingPoint;
 
-    // REQUIRES: direction is one of NB, SB, EB, or WB, and stopID is a 5-digit positive integer 
+    // REQUIRES: direction is one of NB, SB, EB, or WB, and stopID is a 5-digit
+    // positive integer
     // beginning with either 5 or 6
-    // EFFECTS: Constructs a bus stop object with a direction, stop name, stop ID, and a timing point flag
+    // EFFECTS: Constructs a bus stop object with a direction, stop name, stop ID,
+    // and a timing point flag
     public Stop(String direction, String stopName, int stopID, boolean isTimingPoint) {
-        if (!(direction.equals("NB")) && !(direction.equals("SB")) && !(direction.equals("EB")) 
+        if (!(direction.equals("NB")) && !(direction.equals("SB")) && !(direction.equals("EB"))
                 && !(direction.equals("WB"))) {
             throw new IllegalArgumentException("Direction is not valid");
         }
@@ -34,7 +36,8 @@ public class Stop {
 
     // REQUIRES: newName is not an empty string
     // MODIFIES: this
-    // EFFECTS: changes a stop name to reflect changes that may apply to multiple routes in the system
+    // EFFECTS: changes a stop name to reflect changes that may apply to multiple
+    // routes in the system
     public void modifyStopName(String newName) {
         if (newName.isEmpty()) {
             throw new IllegalArgumentException("New stop name is invalid");
