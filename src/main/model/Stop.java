@@ -12,8 +12,8 @@ public class Stop {
     // beginning with either 5 or 6
     // EFFECTS: Constructs a bus stop object with a direction, stop name, stop ID, and a timing point flag
     public Stop(String direction, String stopName, int stopID, boolean isTimingPoint) {
-        if (!(direction.equals("NB")) && !(direction.equals("SB")) && !(direction.equals("EB")) && 
-        !(direction.equals("WB"))) {
+        if (!(direction.equals("NB")) && !(direction.equals("SB")) && !(direction.equals("EB")) 
+                && !(direction.equals("WB"))) {
             throw new IllegalArgumentException("Direction is not valid");
         }
 
