@@ -55,8 +55,8 @@ class JsonReaderTest extends JsonTest {
             List<Stop> stops = r.getStops();
             assertEquals(2, stops.size());
 
-            checkStop(56789, "NB", "Fraser St", false, stops.get(0));
-            checkStop(67890, "EB", "41st Ave", true, stops.get(1));
+            checkStop("NB", "Fraser St", 56789, false, stops.get(0));
+            checkStop("EB", "41st Ave", 67890, true, stops.get(1));
 
             assertEquals("5-min delay on Cambie St due to traffic", r.getOperatorMessage());
         } catch (IOException e) {

@@ -11,10 +11,10 @@ import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 
 @ExcludeFromJacocoGeneratedReport
 public class JsonTest {
-    protected void checkStop(int id, String direction, String name, boolean isTimingPoint, Stop stop) {
-        assertEquals(id, stop.getStopID());
+    protected void checkStop(String direction, String name, int id, boolean isTimingPoint, Stop stop) {
         assertEquals(direction, stop.getDirection());
         assertEquals(name, stop.getStopName());
+        assertEquals(id, stop.getStopID());
         assertEquals(isTimingPoint, stop.getIsTimingPoint());
     }
 }

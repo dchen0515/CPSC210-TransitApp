@@ -64,6 +64,12 @@ public class Route {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets the operator message for this route
+    public void setOperatorMessage(String msg) {
+        this.operatorMessage = msg;
+    }
+
     // Getters
     public int getRouteNumber() {
         return routeNumber;

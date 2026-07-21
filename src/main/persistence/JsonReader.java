@@ -81,9 +81,9 @@ public class JsonReader {
         for (Object json: jsonArray) {
             JSONObject stopJson = (JSONObject) json;
 
-            int stopID = stopJson.getInt("stopID");
-            String stopName = stopJson.getString("stopName");
             String direction = stopJson.getString("direction");
+            String stopName = stopJson.getString("stopName");
+            int stopID = stopJson.getInt("stopID");
             boolean isTimingPoint = stopJson.getBoolean("isTimingPoint");
 
             Stop stop = new Stop(direction, stopName, stopID, isTimingPoint);
