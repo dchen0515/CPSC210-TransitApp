@@ -13,4 +13,8 @@ public class RouteManager {
     public void addRoute(Route route) {
         routes.add(route);
     }
+
+    public List<Route> getRoutes() {
+        return routes;
+    }
 }

@@ -1,0 +1,23 @@
+{
+  "routes": [
+    {
+      "routeNumber": 402,
+      "routeName": "TWO ROAD",
+      "operatorMessage": "5-min delay on Cambie St due to traffic",
+      "stops": [
+        {
+          "stopID": 56789,
+          "stopName": "Fraser St",
+          "direction": "NB",
+          "isTimingPoint": false
+        },
+        {
+          "stopID": 67890,
+          "stopName": "41st Ave",
+          "direction": "EB",
+          "isTimingPoint": true
+        }
+      ]
+    }
+  ]
+}
