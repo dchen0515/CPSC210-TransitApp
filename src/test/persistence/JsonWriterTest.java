@@ -33,7 +33,7 @@ class JsonWriterTest extends JsonTest {
     }
 
     @Test
-    void testWriterEmptyWorkroom() {
+    void testWriterEmptyRouteManager() {
         try {
             RouteManager rm = new RouteManager();
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyRouteManager.json");
@@ -50,16 +50,9 @@ class JsonWriterTest extends JsonTest {
     }
 
     @Test
-    void testWriterGeneralWorkroom() {
+    void testWriterGeneralRouteManager() {
         try {
-            RouteManager rm = new RouteManager();
-
-            Route r = new Route(402, "TWO ROAD");
-            r.setOperatorMessage("5-min delay on Cambie St due to traffic");
-            r.addStop(new Stop("NB", "Fraser St", 56789, false));
-            r.addStop(new Stop("EB", "41st Ave", 67890, true));
-
-            rm.addRoute(r);
+            RouteManager rm = makeSamplRouteManager();
             
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralWorkroom.json");
             writer.open();
@@ -73,18 +66,35 @@ class JsonWriterTest extends JsonTest {
             assertEquals(1, routes.size());
             
             Route readRoute = routes.get(0);
-            assertEquals(402, readRoute.getRouteNumber());
-            assertEquals("TWO ROAD", readRoute.getRouteName());
-            assertEquals("5-min delay on Cambie St due to traffic", readRoute.getOperatorMessage());
+            checkRoute(readRoute);
 
             List<Stop> stops = readRoute.getStops();
-            assertEquals(2, stops.size());
-
             checkStop("NB", "Fraser St", 56789, false, stops.get(0));
             checkStop("EB", "41st Ave", 67890, true, stops.get(1));
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
+    }
+
+    // EFFECTS: returns a sample RouteManager for testing
+    private RouteManager makeSamplRouteManager() {
+        RouteManager rm = new RouteManager();
+
+        Route r = new Route(402, "TWO ROAD");
+        r.setOperatorMessage("5-min delay on Cambie St due to traffic");
+        r.addStop(new Stop("NB", "Fraser St", 56789, false));
+        r.addStop(new Stop("EB", "41st Ave", 67890, true));
+        rm.addRoute(r);
+
+        return rm;
+    }
+
+    // EFFECTS: checks that the given route has the correct fields
+    private void checkRoute(Route r) {
+        assertEquals(402, r.getRouteNumber());
+        assertEquals("TWO ROAD", r.getRouteName());
+        assertEquals("5-min delay on Cambie St due to traffic", r.getOperatorMessage());
+        assertEquals(2, r.getStops().size());
     }
 }

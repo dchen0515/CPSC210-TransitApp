@@ -1,6 +1,10 @@
 package model;
 
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 // Represents a bus route with a direction, a name, and a list of stops on that route
@@ -85,5 +89,24 @@ public class Route {
 
     public String getOperatorMessage() {
         return operatorMessage;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: returns JSON representation of this Route
+    public JSONObject toJson() {
+        JSONObject routeJson = new JSONObject();
+
+        routeJson.put("routeNumber", this.routeNumber);
+        routeJson.put("routeName", this.routeName);
+        routeJson.put("operatorMessage", this.operatorMessage);
+
+        JSONArray stopArray = new JSONArray();
+        for (Stop s : stops) {
+            stopArray.put(s.toJson());
+        }
+
+        routeJson.put("stops", stopArray);
+
+        return routeJson;
     }
 }

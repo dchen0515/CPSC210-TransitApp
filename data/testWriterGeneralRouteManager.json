@@ -1,0 +1,19 @@
+{"routes": [{
+    "routeNumber": 402,
+    "stops": [
+        {
+            "isTimingPoint": false,
+            "stopID": 56789,
+            "stopName": "Fraser St",
+            "direction": "NB"
+        },
+        {
+            "isTimingPoint": true,
+            "stopID": 67890,
+            "stopName": "41st Ave",
+            "direction": "EB"
+        }
+    ],
+    "operatorMessage": "5-min delay on Cambie St due to traffic",
+    "routeName": "TWO ROAD"
+}]}

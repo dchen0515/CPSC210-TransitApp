@@ -2,6 +2,7 @@
 // SOURCE: UBC CPSC 210 course staff (2026)
 
 package persistence;
+
 import model.RouteManager;
 import org.json.JSONObject;
 
@@ -29,7 +30,8 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: writes JSON representation of RouteManager to file
     public void write(RouteManager rm) {
-        // stub
+        JSONObject json = rm.toJson();
+        saveToFile(json.toString(TAB));
     }
 
     // MODIFIES: this

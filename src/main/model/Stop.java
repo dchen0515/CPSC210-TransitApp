@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 // Represents a bus stop with a direction (NB, SB, EB, WB), name, stop ID, and timing point flag
 // A timing point is a stop where buses must wait if they arrive ahead of schedule.
 public class Stop {
@@ -61,5 +63,17 @@ public class Stop {
 
     public boolean getIsTimingPoint() {
         return isTimingPoint;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: returns JSON representation of this Stop
+    public JSONObject toJson() {
+        JSONObject stopJson = new JSONObject();
+        stopJson.put("direction", this.direction);
+        stopJson.put("stopName", this.stopName);
+        stopJson.put("stopID", this.stopID);
+        stopJson.put("isTimingPoint", this.isTimingPoint);
+
+        return stopJson;
     }
 }
