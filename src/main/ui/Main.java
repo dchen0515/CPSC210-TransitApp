@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Main {
 
     private Scanner input;
-    private Route route;
 
     private static final String JSON_STORE = "./data/routeManager.json";
     private JsonWriter writer;
@@ -26,17 +25,29 @@ public class Main {
 
     // EFFECTS: starts the main menu loop
     private void runApp() {
+        routeManager = new RouteManager();
         input = new Scanner(System.in);
-        route = new Route(402, "TWO ROAD");
+        writer = new JsonWriter(JSON_STORE);
+        reader = new JsonReader(JSON_STORE);
 
         boolean running = true;
+
+        routeManager.addRoute(new Route(402, "TWO ROAD"));
 
         while (running) {
             printMenu();
             String command = input.nextLine();
 
             if (command.equals("q")) {
-                running = false;
+                System.out.println("Would you like to save your data? Enter y for yes, n for no.");
+                String saveStatus = input.nextLine();
+
+                if (saveStatus.equals("y")) {
+                    doSaveData();
+                    running = false;
+                } else {
+                    running = false;
+                }
             } else {
                 processCommand(command);
             }
@@ -51,6 +62,7 @@ public class Main {
         System.out.println("2 -> List all stops");
         System.out.println("3 -> Modify a stop name");
         System.out.println("4 -> Record an operator message");
+        System.out.println("l -> Load all route, stop, and operator message data");
         System.out.println("q -> Quit");
     }
 
@@ -66,6 +78,8 @@ public class Main {
             doModifyStop();
         } else if (command.equals("4")) {
             doRecordMessage();
+        } else if (command.equals("l")) {
+            doLoadData();
         } else {
             System.out.println("Invalid option.");
         }
@@ -88,13 +102,13 @@ public class Main {
 
         // Construct the stop object
         Stop s = new Stop(direction, name, id, timingPoint);
-        route.addStop(s);
+        routeManager.getRoutes().get(0).addStop(s);
         System.out.println("Stop added.");
     }
 
     // EFFECTS: prints all stops
     private void doListStops() {
-        String result = route.listStops();
+        String result = routeManager.getRoutes().get(0).listStops();
 
         if (result.isEmpty()) {
             System.out.println("No stops in list yet.");
@@ -112,7 +126,7 @@ public class Main {
 
         Stop found = null;
 
-        for (Stop s : route.getStops()) {
+        for (Stop s : routeManager.getRoutes().get(0).getStops()) {
             if (s.getStopID() == id) {
                 found = s;
                 break;
@@ -147,7 +161,19 @@ public class Main {
             return;
         }
 
-        route.recordOperatorMessage(msg);
+        routeManager.getRoutes().get(0).recordOperatorMessage(msg);
         System.out.println("Message recorded.");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: saves all route, stop, and operator message data
+    private void doSaveData() {
+        // stub
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads all route, stop, and operator message data
+    private void doLoadData() {
+        // stub
     }
 }
