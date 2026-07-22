@@ -32,7 +32,12 @@ public class Main {
 
         boolean running = true;
 
-        routeManager.addRoute(new Route(402, "TWO ROAD"));
+        System.out.println("Enter route number:");
+        int num = Integer.parseInt(input.nextLine());
+        
+        System.out.println("Enter route name:");
+        String name = input.nextLine();
+        routeManager.addRoute(new Route(num, name));
 
         while (running) {
             printMenu();
