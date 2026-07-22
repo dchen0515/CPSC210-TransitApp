@@ -1,0 +1,19 @@
+{"routes": [{
+    "routeNumber": 403,
+    "stops": [
+        {
+            "isTimingPoint": false,
+            "stopID": 56789,
+            "stopName": "STEVESTON HWY AND HWY 99",
+            "direction": "NB"
+        },
+        {
+            "isTimingPoint": true,
+            "stopID": 67898,
+            "stopName": "NO 3 RD AT LANSDOWNE RD",
+            "direction": "NB"
+        }
+    ],
+    "operatorMessage": "Delays at Riverport",
+    "routeName": "THREE ROAD"
+}]}
