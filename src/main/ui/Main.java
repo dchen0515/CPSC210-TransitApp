@@ -7,6 +7,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.util.Scanner;
+import java.util.List;
 
 // Represents the console application interface for the bus route system
 public class Main {
@@ -32,12 +33,7 @@ public class Main {
 
         boolean running = true;
 
-        System.out.println("Enter route number:");
-        int num = Integer.parseInt(input.nextLine());
-        
-        System.out.println("Enter route name:");
-        String name = input.nextLine();
-        routeManager.addRoute(new Route(num, name));
+        initializeRoute();
 
         while (running) {
             printMenu();
@@ -60,6 +56,17 @@ public class Main {
         System.out.println("Application terminated.");
     }
 
+    // MODIFIES: this
+    // EFFECTS: prompts user for route information and adds route to the route manager
+    private void initializeRoute() {
+        System.out.println("Enter route number:");
+        int num = Integer.parseInt(input.nextLine());
+        
+        System.out.println("Enter route name:");
+        String name = input.nextLine();
+        routeManager.addRoute(new Route(num, name));
+    }
+
     // EFFECTS: prints menu options
     private void printMenu() {
         System.out.println("\nSelect an option.");
@@ -67,6 +74,7 @@ public class Main {
         System.out.println("2 -> List all stops");
         System.out.println("3 -> Modify a stop name");
         System.out.println("4 -> Record an operator message");
+        System.out.println("5 -> View operator message");
         System.out.println("l -> Load all route, stop, and operator message data");
         System.out.println("q -> Quit");
     }
@@ -83,6 +91,8 @@ public class Main {
             doModifyStop();
         } else if (command.equals("4")) {
             doRecordMessage();
+        } else if (command.equals("5")) {
+            doViewMessages();
         } else if (command.equals("l")) {
             doLoadData();
         } else {
@@ -191,6 +201,20 @@ public class Main {
             System.out.println("Data loaded from " + JSON_STORE);
         } catch (Exception e) {
             System.out.println("Unable to load data from " + JSON_STORE);
+        }
+    }
+
+    private void doViewMessages() {
+        List<String> msgs = routeManager.getRoutes().get(0).getOperatorMessages();
+
+        if (msgs.isEmpty()) {
+            System.out.println("No operator messages recorded.");
+            return;
+        } else {
+            System.out.println("Operator messages:");
+            for (String m : msgs) {
+                System.out.println("- " + m);
+            }
         }
     }
 }

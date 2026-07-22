@@ -12,7 +12,7 @@ public class Route {
     private int routeNumber;
     private String routeName;
     private List<Stop> stops;
-    private String operatorMessage;
+    private List<String> operatorMessages;
 
     // REQUIRES: routeNumber is between 1 and 900 inclusive
     // EFFECTS: constructs a Route object with a route number, route name, and list
@@ -25,6 +25,7 @@ public class Route {
         this.routeNumber = routeNumber;
         this.routeName = routeName;
         stops = new ArrayList<>();
+        operatorMessages = new ArrayList<>();
     }
 
     // EFFECTS: returns a formatted string describing a bus route
@@ -59,19 +60,13 @@ public class Route {
 
     // REQUIRES: msg is not an empty string
     // MODIFIES: this
-    // EFFECTS: simulates recording a message from the operator
+    // EFFECTS: adds a new operator message to the list of messages
     public void recordOperatorMessage(String msg) {
         if (msg.isEmpty()) {
             throw new IllegalArgumentException("Message is invalid");
         } else {
-            operatorMessage = msg;
+            operatorMessages.add(msg);
         }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: sets the operator message for this route
-    public void setOperatorMessage(String msg) {
-        this.operatorMessage = msg;
     }
 
     // Getters
@@ -87,8 +82,8 @@ public class Route {
         return stops;
     }
 
-    public String getOperatorMessage() {
-        return operatorMessage;
+    public List<String> getOperatorMessages() {
+        return operatorMessages;
     }
 
     // MODIFIES: this
@@ -98,7 +93,7 @@ public class Route {
 
         routeJson.put("routeNumber", this.routeNumber);
         routeJson.put("routeName", this.routeName);
-        routeJson.put("operatorMessage", this.operatorMessage);
+        routeJson.put("operatorMessages", this.operatorMessages);
 
         JSONArray stopArray = new JSONArray();
         for (Stop s : stops) {

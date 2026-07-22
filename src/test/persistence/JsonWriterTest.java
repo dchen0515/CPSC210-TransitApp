@@ -52,14 +52,14 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterGeneralRouteManager() {
         try {
-            RouteManager rm = makeSamplRouteManager();
+            RouteManager rm = makeSampleRouteManager();
             
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralWorkroom.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralRouteManager.json");
             writer.open();
             writer.write(rm);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterGeneralWorkroom.json");
+            JsonReader reader = new JsonReader("./data/testWriterGeneralRouteManager.json");
             rm = reader.read();
 
             List<Route> routes = rm.getRoutes();
@@ -78,11 +78,11 @@ class JsonWriterTest extends JsonTest {
     }
 
     // EFFECTS: returns a sample RouteManager for testing
-    private RouteManager makeSamplRouteManager() {
+    private RouteManager makeSampleRouteManager() {
         RouteManager rm = new RouteManager();
 
         Route r = new Route(402, "TWO ROAD");
-        r.setOperatorMessage("5-min delay on Cambie St due to traffic");
+        r.recordOperatorMessage("5-min delay on Cambie St due to traffic");
         r.addStop(new Stop("NB", "Fraser St", 56789, false));
         r.addStop(new Stop("EB", "41st Ave", 67890, true));
         rm.addRoute(r);
@@ -94,7 +94,8 @@ class JsonWriterTest extends JsonTest {
     private void checkRoute(Route r) {
         assertEquals(402, r.getRouteNumber());
         assertEquals("TWO ROAD", r.getRouteName());
-        assertEquals("5-min delay on Cambie St due to traffic", r.getOperatorMessage());
+        assertEquals(1, r.getOperatorMessages().size());
+        assertEquals("5-min delay on Cambie St due to traffic", r.getOperatorMessages().get(0));
         assertEquals(2, r.getStops().size());
     }
 }

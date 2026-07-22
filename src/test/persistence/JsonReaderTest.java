@@ -58,7 +58,8 @@ class JsonReaderTest extends JsonTest {
             checkStop("NB", "Fraser St", 56789, false, stops.get(0));
             checkStop("EB", "41st Ave", 67890, true, stops.get(1));
 
-            assertEquals("5-min delay on Cambie St due to traffic", r.getOperatorMessage());
+            assertEquals(1, r.getOperatorMessages().size());
+            assertEquals("5-min delay on Cambie St due to traffic", r.getOperatorMessages().get(0));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

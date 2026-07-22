@@ -93,7 +93,20 @@ public class RouteTest {
     void testRecordOperatorMessageStoresMessage() {
         String msg = "Bus is too early!";
         r.recordOperatorMessage(msg);
-        assertEquals(msg, r.getOperatorMessage());
+        assertEquals(1, r.getOperatorMessages().size());
+        assertEquals(msg, r.getOperatorMessages().get(0));
+    }
+
+    @Test
+    void testRecordMultipleOperatorMessages() {
+        r.recordOperatorMessage("Message 1");
+        r.recordOperatorMessage("Message 2");
+        r.recordOperatorMessage("Message 3");
+
+        assertEquals(3, r.getOperatorMessages().size());
+        assertEquals("Message 1", r.getOperatorMessages().get(0));
+        assertEquals("Message 2", r.getOperatorMessages().get(1));
+        assertEquals("Message 3", r.getOperatorMessages().get(2));
     }
 
     // EFFECTS: verifies that recordOperatorMessage throws IllegalArgumentException

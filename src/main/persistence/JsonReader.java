@@ -69,7 +69,7 @@ public class JsonReader {
         Route route = new Route(routeNumber, routeName);
         
         addStops(route, jsonObject);
-        addOperatorMessage(route, jsonObject);
+        addOperatorMessages(route, jsonObject);
 
         rm.addRoute(route);
     }
@@ -93,8 +93,13 @@ public class JsonReader {
 
     // MODIFIES: route
     // EFFECTS: parses operator messages in JSON form and records them for a route
-    private void addOperatorMessage(Route route, JSONObject routeJson) {
-        if (routeJson.has("operatorMessage")) {
+    private void addOperatorMessages(Route route, JSONObject routeJson) {
+        if (routeJson.has("operatorMessages")) {
+            JSONArray msgArray = routeJson.getJSONArray("operatorMessages");
+            for (Object m : msgArray) {
+                route.recordOperatorMessage((String) m);
+            }
+        } else if (routeJson.has("operatorMessage")) {
             String message = routeJson.getString("operatorMessage");
             route.recordOperatorMessage(message);
         }
