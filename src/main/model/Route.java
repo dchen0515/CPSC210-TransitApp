@@ -51,7 +51,7 @@ public class Route {
             String accumulator = "";
 
             for (int i = 0; i < stops.size(); i++) {
-                accumulator += stops.get(i).returnStop();
+                accumulator += stops.get(i).returnStop() + "\n";
             }
             return accumulator;
         }
