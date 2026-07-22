@@ -166,14 +166,26 @@ public class Main {
     }
 
     // MODIFIES: this
-    // EFFECTS: saves all route, stop, and operator message data
+    // EFFECTS: saves all route, stop, and operator message data to JSON_STORE
     private void doSaveData() {
-        // stub
+        try {
+            writer.open();
+            writer.write(routeManager);
+            writer.close();
+            System.out.println("Data saved to " + JSON_STORE);
+        } catch (Exception e) {
+            System.out.println("Unable to save data to " + JSON_STORE);
+        }
     }
 
     // MODIFIES: this
-    // EFFECTS: loads all route, stop, and operator message data
+    // EFFECTS: loads all route, stop, and operator message data to JSON_STORE
     private void doLoadData() {
-        // stub
+        try {
+            routeManager = reader.read();
+            System.out.println("Data loaded from " + JSON_STORE);
+        } catch (Exception e) {
+            System.out.println("Unable to load data from " + JSON_STORE);
+        }
     }
 }
