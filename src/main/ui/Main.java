@@ -1,7 +1,10 @@
 package ui;
 
 import model.Route;
+import model.RouteManager;
 import model.Stop;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.util.Scanner;
 
@@ -10,6 +13,11 @@ public class Main {
 
     private Scanner input;
     private Route route;
+
+    private static final String JSON_STORE = "./data/routeManager.json";
+    private JsonWriter writer;
+    private JsonReader reader;
+    private RouteManager routeManager;
 
     // EFFECTS: runs the bus route application
     public static void main(String[] args) {
