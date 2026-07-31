@@ -36,6 +36,10 @@ public class StopListPanel extends JPanel {
     // MODIFIES: this
     // EFFECTS: clears the current list and displays the given stops in the panel
     public void showStops(List<Stop> stops) {
-        // stub
+        model.clear();
+
+        for (Stop s : stops) {
+            model.addElement(s.getStopName());
+        }
     }
 }
