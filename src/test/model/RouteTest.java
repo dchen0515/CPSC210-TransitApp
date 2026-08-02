@@ -6,19 +6,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class RouteTest {
-    private Route r;
+    private Route route;
 
     @BeforeEach
     void runBefore() {
-        r = new Route(402, "TWO ROAD");
+        route = new Route(402, "TWO ROAD");
     }
 
     // REQUIRES: route number and route name are valid inputs
     // EFFECTS: confirms that all Route constructor fields initialize correctly
     @Test
     void testConstructorFields() {
-        assertEquals(402, r.getRouteNumber());
-        assertEquals("TWO ROAD", r.getRouteName());
+        assertEquals(402, route.getRouteNumber());
+        assertEquals("TWO ROAD", route.getRouteName());
     }
 
     // EFFECTS: verifies that the constructor throws IllegalArgumentException for
@@ -35,7 +35,7 @@ public class RouteTest {
     // containing route information
     @Test
     void testMakeBusRouteFormatting() {
-        String result = r.makeBusRoute();
+        String result = route.makeBusRoute();
         assertTrue(result.contains("402"));
         assertTrue(result.contains("TWO ROAD"));
     }
@@ -46,8 +46,8 @@ public class RouteTest {
     @Test
     void testAddStopAddsStop() {
         Stop s1 = new Stop("SB", "NO 2 RD AT 8600 BLOCK", 56000, false);
-        r.addStop(s1);
-        assertTrue(r.getStops().contains(s1));
+        route.addStop(s1);
+        assertTrue(route.getStops().contains(s1));
     }
 
     // EFFECTS: verifies that addStop throws IllegalArgumentException when given
@@ -55,7 +55,7 @@ public class RouteTest {
     @Test
     void testAddStopRejectsNull() {
         assertThrows(IllegalArgumentException.class, () -> {
-            r.addStop(null);
+            route.addStop(null);
         });
     }
 
@@ -65,9 +65,9 @@ public class RouteTest {
     void testListStopsReturnsFormattedList() {
         Stop s2 = new Stop("WB", "BLUNDELL RD AT GILBERT RD", 56576, false);
         Stop s3 = new Stop("SB", "NO 2 RD AT WILLIAMS RD", 56585, false);
-        r.addStop(s2);
-        r.addStop(s3);
-        String formattedListOfStops = r.listStops();
+        route.addStop(s2);
+        route.addStop(s3);
+        String formattedListOfStops = route.listStops();
         assertTrue(formattedListOfStops.contains("WB"));
         assertTrue(formattedListOfStops.contains("BLUNDELL RD AT GILBERT RD"));
         assertTrue(formattedListOfStops.contains("56576"));
@@ -81,7 +81,7 @@ public class RouteTest {
     // present
     @Test
     void testListStopsEmptyList() {
-        String emptyStopList = r.listStops();
+        String emptyStopList = route.listStops();
         assertEquals("", emptyStopList);
     }
 
@@ -92,21 +92,21 @@ public class RouteTest {
     @Test
     void testRecordOperatorMessageStoresMessage() {
         String msg = "Bus is too early!";
-        r.recordOperatorMessage(msg);
-        assertEquals(1, r.getOperatorMessages().size());
-        assertEquals(msg, r.getOperatorMessages().get(0));
+        route.recordOperatorMessage(msg);
+        assertEquals(1, route.getOperatorMessages().size());
+        assertEquals(msg, route.getOperatorMessages().get(0));
     }
 
     @Test
     void testRecordMultipleOperatorMessages() {
-        r.recordOperatorMessage("Message 1");
-        r.recordOperatorMessage("Message 2");
-        r.recordOperatorMessage("Message 3");
+        route.recordOperatorMessage("Message 1");
+        route.recordOperatorMessage("Message 2");
+        route.recordOperatorMessage("Message 3");
 
-        assertEquals(3, r.getOperatorMessages().size());
-        assertEquals("Message 1", r.getOperatorMessages().get(0));
-        assertEquals("Message 2", r.getOperatorMessages().get(1));
-        assertEquals("Message 3", r.getOperatorMessages().get(2));
+        assertEquals(3, route.getOperatorMessages().size());
+        assertEquals("Message 1", route.getOperatorMessages().get(0));
+        assertEquals("Message 2", route.getOperatorMessages().get(1));
+        assertEquals("Message 3", route.getOperatorMessages().get(2));
     }
 
     // EFFECTS: verifies that recordOperatorMessage throws IllegalArgumentException
@@ -114,7 +114,7 @@ public class RouteTest {
     @Test
     void testRecordOperatorMessageRejectsEmptyMessage() {
         assertThrows(IllegalArgumentException.class, () -> {
-            r.recordOperatorMessage("");
+            route.recordOperatorMessage("");
         });
     }
 }

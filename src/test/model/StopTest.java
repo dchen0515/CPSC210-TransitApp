@@ -7,21 +7,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class StopTest {
 
-    private Stop s;
+    private Stop stop;
 
     @BeforeEach
     void runBefore() {
-        s = new Stop("NB", "MAIN ST AT E 41 AVE", 50155, true);
+        stop = new Stop("NB", "MAIN ST AT E 41 AVE", 50155, true);
     }
 
     // REQUIRES: direction, stop name, and stop ID are valid
     // EFFECTS: verifies that all Stop constructor fields initialize correctly
     @Test
     void testConstructorFields() {
-        assertEquals("NB", s.getDirection());
-        assertEquals("MAIN ST AT E 41 AVE", s.getStopName());
-        assertEquals(50155, s.getStopID());
-        assertTrue(s.getIsTimingPoint());
+        assertEquals("NB", stop.getDirection());
+        assertEquals("MAIN ST AT E 41 AVE", stop.getStopName());
+        assertEquals(50155, stop.getStopID());
+        assertTrue(stop.getIsTimingPoint());
     }
 
     // EFFECTS: verifies that the constructor throws IllegalArgumentException for
@@ -56,7 +56,7 @@ public class StopTest {
     // information
     @Test
     void testReturnStopFormatting() {
-        String result = s.returnStop();
+        String result = stop.returnStop();
         assertTrue(result.contains("NB"));
         assertTrue(result.contains("MAIN ST AT E 41 AVE"));
         assertTrue(result.contains("Stop number:"));
@@ -70,8 +70,8 @@ public class StopTest {
     // EFFECTS: verifies that modifyStopName updates stop name correctly
     @Test
     void testModifyStopNameChangesName() {
-        s.modifyStopName("MAIN ST AT 40 AVE");
-        assertEquals("MAIN ST AT 40 AVE", s.getStopName());
+        stop.modifyStopName("MAIN ST AT 40 AVE");
+        assertEquals("MAIN ST AT 40 AVE", stop.getStopName());
     }
 
     // REQUIRES: newName is not an empty string
@@ -80,10 +80,10 @@ public class StopTest {
     // timing point status
     @Test
     void testModifyStopNameLeavesOtherFieldsUnchanged() {
-        s.modifyStopName("MAIN ST AT 42 AVE");
-        assertEquals("NB", s.getDirection());
-        assertEquals(50155, s.getStopID());
-        assertTrue(s.getIsTimingPoint());
+        stop.modifyStopName("MAIN ST AT 42 AVE");
+        assertEquals("NB", stop.getDirection());
+        assertEquals(50155, stop.getStopID());
+        assertTrue(stop.getIsTimingPoint());
     }
 
     // EFFECTS: verifies that modifyStopName throws IllegalArgumentException when
@@ -91,7 +91,7 @@ public class StopTest {
     @Test
     void testModifyStopNameRejectsEmptyName() {
         assertThrows(IllegalArgumentException.class, () -> {
-            s.modifyStopName("");
+            stop.modifyStopName("");
         });
     }
 }
