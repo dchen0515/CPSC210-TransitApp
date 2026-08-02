@@ -16,16 +16,25 @@ public class VisualPanel extends JPanel {
     // EFFECTS: initializes the visual panel with a static image
     public VisualPanel() {
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(400, 300));
+        setPreferredSize(new Dimension(600, 450));
 
-        ImageIcon icon = new ImageIcon("C:\\Users\\dchen\\Desktop\\IMG_6290.jpg");
+        JPanel grid = new JPanel(new GridLayout(2, 3, 5, 5));
+        
+        grid.add(makeImageLabel("9285.jpg"));
+        grid.add(makeImageLabel("8115.jpg"));
+        grid.add(makeImageLabel("21414.jpg"));
 
-        Image scaled = icon.getImage().getScaledInstance(400, 300, Image.SCALE_SMOOTH);
-        ImageIcon scaledIcon = new ImageIcon(scaled);
+        grid.add(makeImageLabel("7489.jpg"));
+        grid.add(makeImageLabel("7492.jpg"));
+        grid.add(makeImageLabel("3329.jpg"));
 
-        JLabel imageLabel = new JLabel(scaledIcon);
-        imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(imageLabel, BorderLayout.CENTER);
+        add(grid, BorderLayout.CENTER);
+    }
+
+    private JLabel makeImageLabel(String filename) {
+        ImageIcon icon = new ImageIcon("src/images/" + filename);
+        Image scaled = icon.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
+        return new JLabel(new ImageIcon(scaled), SwingConstants.CENTER);
     }
 
 }
