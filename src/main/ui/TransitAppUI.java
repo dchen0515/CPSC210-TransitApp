@@ -26,7 +26,7 @@ public class TransitAppUI extends JFrame {
         setLayout(new BorderLayout());
 
         stopListPanel = new StopListPanel();
-        controlPanel = new ControlPanel(stopListPanel);
+        controlPanel = new ControlPanel(stopListPanel, this);
         visualPanel = new VisualPanel();
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, stopListPanel, visualPanel);
