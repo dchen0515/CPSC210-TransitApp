@@ -93,13 +93,17 @@ public class Route {
 
         routeJson.put("routeNumber", this.routeNumber);
         routeJson.put("routeName", this.routeName);
+
+        JSONArray msgArray = new JSONArray();
+        for (String msg : operatorMessages) {
+            msgArray.put(msg);
+        }
         routeJson.put("operatorMessages", this.operatorMessages);
 
         JSONArray stopArray = new JSONArray();
         for (Stop s : stops) {
             stopArray.put(s.toJson());
         }
-
         routeJson.put("stops", stopArray);
 
         return routeJson;

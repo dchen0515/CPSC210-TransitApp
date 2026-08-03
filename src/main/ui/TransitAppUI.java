@@ -171,6 +171,8 @@ public class TransitAppUI extends JFrame {
 
         controlPanel.setRoute(currentRoute);
         stopListPanel.refresh(routeManager);
+        operatorMessagePanel.refresh(routeManager);
+
         revalidate();
         repaint();
     }
@@ -195,13 +197,14 @@ public class TransitAppUI extends JFrame {
             add(buildRoutePanel(), BorderLayout.NORTH);
             buildMainPanels(loadedRoute);
 
+            revalidate();
+            repaint();
+
             stopListPanel.refresh(routeManager);
+            operatorMessagePanel.refresh(routeManager);
 
             routeNumberField.setText(Integer.toString(loadedRoute.getRouteNumber()));
             routeNameField.setText(loadedRoute.getRouteName());
-
-            revalidate();
-            repaint();
 
             JOptionPane.showMessageDialog(this, "Data loaded successfully.");
 
