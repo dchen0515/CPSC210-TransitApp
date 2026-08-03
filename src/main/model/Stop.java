@@ -65,6 +65,23 @@ public class Stop {
         return isTimingPoint;
     }
 
+    // Setters
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public void setStopName(String stopName) {
+        this.stopName = stopName;
+    }
+
+    public void setStopID(int stopID) {
+        this.stopID = stopID;
+    }
+
+    public void setTimingPoint(boolean isTimingPoint) {
+        this.isTimingPoint = isTimingPoint;
+    }
+
     // MODIFIES: this
     // EFFECTS: returns JSON representation of this Stop
     public JSONObject toJson() {

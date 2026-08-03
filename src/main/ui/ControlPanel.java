@@ -101,21 +101,56 @@ public class ControlPanel extends JPanel implements ActionListener {
         String cmd = e.getActionCommand();
 
         if (cmd.equals("add")) {
-            String direction = (String) directionBox.getSelectedItem();
-            String name = stopNameField.getText().trim();
-            String idText = stopIdField.getText().trim();
-            boolean timingPoint = timingPointBox.isSelected();
-
-            if (name.isEmpty() || idText.isEmpty()) {
-                return;
-            }
-
-            int id = Integer.parseInt(idText);
-
-            Stop stop = new Stop(direction, name, id, timingPoint);
-            model.addStop(stop);
+            handleAddStop();
+        } else if (cmd.equals("modify")) {
+            handleModifyStop();
         }
 
         stopListPanel.refresh(model);
+    }
+
+    // MODIFIES: model
+    // EFFECTS: adds a new stop to the route using the input fields
+    private void handleAddStop() {
+        String direction = (String) directionBox.getSelectedItem();
+        String name = stopNameField.getText().trim();
+        String idText = stopIdField.getText().trim();
+        boolean timingPoint = timingPointBox.isSelected();
+
+        if (name.isEmpty() || idText.isEmpty()) {
+            return;
+        }
+
+        int id = Integer.parseInt(idText);
+
+        Stop stop = new Stop(direction, name, id, timingPoint);
+        model.addStop(stop);
+    }
+
+    // MODIFIES: model
+    // EFFECTS: modifies the selected stop using the input fields
+    private void handleModifyStop() {
+        int index = stopListPanel.getSelectedIndex();
+        if (index < 0) {
+            return;
+        }
+
+        Stop selected = model.getStops().get(index);
+
+        String direction = (String) directionBox.getSelectedItem();
+        String name = stopNameField.getText().trim();
+        String idText = stopIdField.getText().trim();
+        boolean timingPoint = timingPointBox.isSelected();
+
+        if (name.isEmpty() || idText.isEmpty()) {
+            return;
+        }
+
+        int id = Integer.parseInt(idText);
+
+        selected.setDirection(direction);
+        selected.setStopName(name);
+        selected.setStopID(id);
+        selected.setTimingPoint(timingPoint);
     }
 }

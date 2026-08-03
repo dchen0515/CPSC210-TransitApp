@@ -28,6 +28,10 @@ public class StopListPanel extends JPanel {
         model = new DefaultListModel<>();
         list = new JList<>(model);
 
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        list.setLayoutOrientation(JList.VERTICAL);
+        list.setVisibleRowCount(-1);
+
         JScrollPane scrollPane = new JScrollPane(list);
         add(scrollPane, BorderLayout.CENTER);
     }
@@ -57,5 +61,10 @@ public class StopListPanel extends JPanel {
 
             model.addElement(display);
         }
+    }
+
+    // getter for the chosen index
+    public int getSelectedIndex() {
+        return list.getSelectedIndex();
     }
 }
