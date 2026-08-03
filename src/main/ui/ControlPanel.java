@@ -119,7 +119,8 @@ public class ControlPanel extends JPanel implements ActionListener {
     // MODIFIES: model
     // EFFECTS: adds a new stop to the route using the input fields
     private void handleAddStop() {
-        if (activeRoute == null) {
+        Route targetRoute = determineTargetRoute();
+        if (targetRoute == null) {
             return;
         }
 
@@ -133,9 +134,24 @@ public class ControlPanel extends JPanel implements ActionListener {
         }
 
         int id = Integer.parseInt(idText);
-
         Stop stop = new Stop(direction, name, id, timingPoint);
-        activeRoute.addStop(stop);
+
+        targetRoute.addStop(stop);
+    }
+
+    // EFFECTS: returns the route to add a stop to based on selection or activeRoute
+    private Route determineTargetRoute() {
+        int index = stopListPanel.getSelectedIndex();
+        if (index >= 0) {
+            Stop selected = stopListPanel.getStopAtIndex(index);
+            if (selected != null) {
+                Route r = routeManager.findRouteContaining(selected);
+                if (r != null) {
+                    return r;
+                }
+            }
+        }
+        return activeRoute;
     }
 
     // MODIFIES: selected stop

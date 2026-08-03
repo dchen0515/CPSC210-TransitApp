@@ -77,6 +77,7 @@ public class StopListPanel extends JPanel {
             model.addElement("");
             indexToStop.add(null); 
         }
+        list.clearSelection();
     }
 
     // getter for the chosen index

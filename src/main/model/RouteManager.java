@@ -22,6 +22,18 @@ public class RouteManager {
         return routes;
     }
 
+    // REQUIRES: Stop s is not null
+    // MODIFIES: this
+    // EFFECTS: finds the route containing a particular stop in the list of routes
+    public Route findRouteContaining(Stop s) {
+        for (Route r : routes) {
+            if (r.getStops().contains(s)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
     // MODIFIES: this
     // EFFECTS: returns JSON representation of this RouteManager
     public JSONObject toJson() {
@@ -33,7 +45,7 @@ public class RouteManager {
         }
 
         routeManagerJson.put("routes", routeArray);
-        
+
         return routeManagerJson;
     }
 }
