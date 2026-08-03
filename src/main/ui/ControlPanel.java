@@ -190,6 +190,13 @@ public class ControlPanel extends JPanel implements ActionListener {
         selected.setTimingPoint(timingPoint);
     }
 
+    // MODIFIES: routeManager
+    // EFFECTS: records an operator message for selected route; if no route selected, 
+    // records message for activeRoute
+    private void handleOperatorMessage() {
+        // stub
+    }
+
     // Setter for new route
     public void setRoute(Route newRoute) {
         this.activeRoute = newRoute;
