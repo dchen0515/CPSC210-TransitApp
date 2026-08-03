@@ -81,7 +81,8 @@ public class TransitAppUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: initializes operator message input field and button
     private void setupOperatorMessageFields() {
-        // stub
+        operatorMessageField = new JTextField(25);
+        recordMessageButton = new JButton("Record Message");
     }
 
     // MODIFIES: this
@@ -97,7 +98,8 @@ public class TransitAppUI extends JFrame {
         saveButton.addActionListener(e -> saveData());
     }
 
-    // EFFECTS: builds and returns the panel for entering route number and name
+    // EFFECTS: builds and returns the panel for entering route number, name, and
+    // operator messages
     private JPanel buildRoutePanel() {
         routePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         routePanel.setPreferredSize(new Dimension(900, 50));
@@ -112,6 +114,10 @@ public class TransitAppUI extends JFrame {
         routePanel.add(loadButton);
         routePanel.add(saveButton);
 
+        routePanel.add(new JLabel("Operator message:"));
+        routePanel.add(operatorMessageField);
+        routePanel.add(recordMessageButton);
+
         return routePanel;
     }
 
@@ -121,7 +127,17 @@ public class TransitAppUI extends JFrame {
     private void buildMainPanels(Route activeRoute) {
         stopListPanel = new StopListPanel();
         operatorMessagePanel = new OperatorMessagePanel();
-        controlPanel = new ControlPanel(stopListPanel, operatorMessagePanel, routeManager, activeRoute);
+        controlPanel = new ControlPanel(
+                stopListPanel,
+                operatorMessagePanel,
+                routeManager,
+                activeRoute,
+                operatorMessageField,
+                recordMessageButton);
+
+        recordMessageButton.setActionCommand("operator");
+        recordMessageButton.addActionListener(controlPanel);
+        
         visualPanel = new VisualPanel();
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, stopListPanel, visualPanel);
