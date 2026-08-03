@@ -28,7 +28,9 @@ public class TransitAppUI extends JFrame {
 
     private JTextField routeNumberField;
     private JTextField routeNameField;
+    private JTextField operatorMessageField;
     private JButton createRouteButton;
+    private JButton recordMessageButton;
 
     private JButton loadButton;
     private JButton saveButton;
@@ -43,6 +45,7 @@ public class TransitAppUI extends JFrame {
     public TransitAppUI() {
         setupFrame();
         setupRouteFields();
+        setupOperatorMessageFields();
         setupPersistence();
 
         routeManager = new RouteManager();
@@ -73,6 +76,12 @@ public class TransitAppUI extends JFrame {
         routeNameField = new JTextField(15);
         createRouteButton = new JButton("Create Route");
         createRouteButton.addActionListener(e -> handleCreateRoute());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes operator message input field and button
+    private void setupOperatorMessageFields() {
+        // stub
     }
 
     // MODIFIES: this

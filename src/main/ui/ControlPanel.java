@@ -26,6 +26,7 @@ public class ControlPanel extends JPanel implements ActionListener {
     private RouteManager routeManager;
     private Route activeRoute;
     private StopListPanel stopListPanel;
+    private OperatorMessagePanel operatorMessagePanel;
 
     private JComboBox<String> directionBox;
     private JTextField stopNameField;
@@ -35,18 +36,30 @@ public class ControlPanel extends JPanel implements ActionListener {
     private JButton addStopButton;
     private JButton modifyStopButton;
 
+    private JTextField operatorMessageField;
+    private JButton recordMessageButton;
+
     // REQUIRES: stopListPanel and routeManager are not null
     // MODIFIES: this
-    // EFFECTS: constructs new ControlPanel with accompanying StopListPanel and
-    // RouteManager
+    // EFFECTS: constructs new ControlPanel with accompanying StopListPanel,
+    // OperatorMessagePanel, and RouteManager
     // and sets active route using the given value; initializes all input fields and
-    // action buttons
-    // to add/modify stops in active route. Note: ControlPanel edits only the active
-    // route.
-    public ControlPanel(StopListPanel stopListPanel, RouteManager routeManager, Route activeRoute) {
+    // action buttons to add/modify stops
+    // and/or operator messages in active route. Note: ControlPanel is based on
+    // user's choice in StopListPanel, and defaults
+    // to the active route when nothing is selected.
+    public ControlPanel(StopListPanel stopListPanel,
+            OperatorMessagePanel operatorMessagePanel,
+            RouteManager routeManager,
+            Route activeRoute,
+            JTextField operatorMessageField,
+            JButton recordMessageButton) {
         this.stopListPanel = stopListPanel;
+        this.operatorMessagePanel = operatorMessagePanel;
         this.routeManager = routeManager;
         this.activeRoute = activeRoute;
+        this.operatorMessageField = operatorMessageField;
+        this.recordMessageButton = recordMessageButton;
 
         setupFields();
         setupButtons();
@@ -111,6 +124,8 @@ public class ControlPanel extends JPanel implements ActionListener {
             handleAddStop();
         } else if (cmd.equals("modify")) {
             handleModifyStop();
+        } else if (cmd.equals("operator")) {
+            handleOperatorMessage();
         }
 
         stopListPanel.refresh(routeManager);
@@ -191,10 +206,25 @@ public class ControlPanel extends JPanel implements ActionListener {
     }
 
     // MODIFIES: routeManager
-    // EFFECTS: records an operator message for selected route; if no route selected, 
+    // EFFECTS: records an operator message for selected route; if no route
+    // selected,
     // records message for activeRoute
     private void handleOperatorMessage() {
-        // stub
+        Route target = determineTargetRoute();
+        if (target == null) {
+            return;
+        }
+
+        String msg = operatorMessageField.getText().trim();
+        if (msg.isEmpty()) {
+            return;
+        }
+
+        target.recordOperatorMessage(msg);
+        operatorMessageField.setText("");
+
+        stopListPanel.refresh(routeManager);
+        operatorMessagePanel.refresh(routeManager);
     }
 
     // Setter for new route
