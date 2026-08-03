@@ -142,15 +142,21 @@ public class ControlPanel extends JPanel implements ActionListener {
     // EFFECTS: returns the route to add a stop to based on selection or activeRoute
     private Route determineTargetRoute() {
         int index = stopListPanel.getSelectedIndex();
-        if (index >= 0) {
-            Stop selected = stopListPanel.getStopAtIndex(index);
-            if (selected != null) {
-                Route r = routeManager.findRouteContaining(selected);
-                if (r != null) {
-                    return r;
-                }
-            }
+        if (index < 0) {
+            return activeRoute;
         }
+
+        Stop selectedStop = stopListPanel.getStopAtIndex(index);
+        Route selectedRoute = stopListPanel.getRouteAtIndex(index);
+
+        if (selectedStop != null) {
+            return routeManager.findRouteContaining(selectedStop);
+        }
+
+        if (selectedRoute != null) {
+            return selectedRoute;
+        }
+
         return activeRoute;
     }
 

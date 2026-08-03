@@ -23,6 +23,8 @@ public class StopListPanel extends JPanel {
     private JList<String> list;
     private java.util.List<Stop> indexToStop;
 
+    private java.util.List<Route> indexToRoute;
+
     // MODIFIES: this
     // EFFECTS: initializes the StopList panel with a scrollable JList
     public StopListPanel() {
@@ -58,11 +60,13 @@ public class StopListPanel extends JPanel {
     public void refresh(RouteManager manager) {
         model.clear();
         indexToStop = new ArrayList<>();
+        indexToRoute = new ArrayList<>();
 
         for (Route route : manager.getRoutes()) {
 
             model.addElement("Stops for " + route.getRouteNumber() + " " + route.getRouteName());
             indexToStop.add(null);
+            indexToRoute.add(route);
 
             for (Stop s : route.getStops()) {
                 String display = s.getDirection()
@@ -72,10 +76,12 @@ public class StopListPanel extends JPanel {
 
                 model.addElement("  " + display);
                 indexToStop.add(s);
+                indexToRoute.add(route);
             }
 
             model.addElement("");
-            indexToStop.add(null); 
+            indexToStop.add(null);
+            indexToRoute.add(null); 
         }
         list.clearSelection();
     }
@@ -85,7 +91,7 @@ public class StopListPanel extends JPanel {
         return list.getSelectedIndex();
     }
 
-    // REQUIRES: manager is not null; index is valid in this panel's JList
+    // REQUIRES: index is valid in this panel's JList
     // EFFECTS: returns the Stop object corresponding to given JList index,
     // interpreting list as a multi-route stacked display. Returns null if
     // the index refers to a route header or a blank line
@@ -94,5 +100,16 @@ public class StopListPanel extends JPanel {
             return null;
         }
         return indexToStop.get(index);
+    }
+
+    // REQUIRES: index is valid in this panel's JList
+    // EFFECTS: returns the Route object corresponding to given JList index,
+    // interpreting list as a multi-route stacked display. Returns null if
+    // the index refers to a route header or a blank line
+    public Route getRouteAtIndex(int index) {
+        if (index < 0 || index >= indexToRoute.size()) {
+            return null;
+        }
+        return indexToRoute.get(index);
     }
 }
