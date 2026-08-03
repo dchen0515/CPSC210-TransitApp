@@ -208,6 +208,8 @@ public class Main {
         }
     }
 
+    // MOEIFIES: this
+    // EFFECTS: allows user to view all recorded operator messages 
     private void doViewMessages() {
         List<String> msgs = routeManager.getRoutes().get(0).getOperatorMessages();
 
