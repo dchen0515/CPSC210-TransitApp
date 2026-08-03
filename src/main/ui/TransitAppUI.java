@@ -4,6 +4,8 @@ import javax.swing.*;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.RouteManager;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 import model.Route;
 
 import java.awt.*;
@@ -23,12 +25,21 @@ public class TransitAppUI extends JFrame {
     private JTextField routeNameField;
     private JButton createRouteButton;
 
+    private JButton loadButton;
+    private JButton saveButton;
+
+    private static final String JSON_STORE = "./date/transit.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
     // MODIFIES: this
     // EFFECTS: sets up the main window for the TransitApp GUI and initializes
     // all UI panels (stop list, controls, route creation, visual component)
     public TransitAppUI() {
         setupFrame();
         setupRouteFields();
+        setupPersistence();
+
         routeManager = new RouteManager();
 
         add(buildRoutePanel(), BorderLayout.NORTH);
@@ -56,6 +67,19 @@ public class TransitAppUI extends JFrame {
         routeNameField = new JTextField(15);
         createRouteButton = new JButton("Create Route");
         createRouteButton.addActionListener(e -> handleCreateRoute());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes persistence functions and load+save buttons
+    private void setupPersistence() {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+
+        loadButton = new JButton("Load Data");
+        saveButton = new JButton("Save Data");
+
+        loadButton.addActionListener(e -> loadData());
+        saveButton.addActionListener(e -> saveData());
     }
 
     // EFFECTS: builds and returns the panel for entering route number and name
@@ -109,6 +133,17 @@ public class TransitAppUI extends JFrame {
 
         add(splitPane, BorderLayout.CENTER);
         add(controlPanel, BorderLayout.SOUTH);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads routeManager from JSON file and rebuilds GUI panels
+    private void loadData() {
+        // stub
+    }
+
+    // EFFECTS: saves routeManager to JSON file
+    private void saveData() {
+        // stub
     }
 
     // EFFECTS: runs the TransitApp GUI application
