@@ -47,7 +47,7 @@ public class TransitAppUI extends JFrame {
         routeManager = new RouteManager();
 
         add(buildRoutePanel(), BorderLayout.NORTH);
-        buildMainPanels();
+        buildMainPanels(null);
 
         pack();
         setVisible(true);
@@ -108,9 +108,9 @@ public class TransitAppUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: builds and adds the stop list panel, control panel, and visual
     // panel to the main window; only called once on startup
-    private void buildMainPanels() {
+    private void buildMainPanels(Route activeRoute) {
         stopListPanel = new StopListPanel();
-        controlPanel = new ControlPanel(stopListPanel, routeManager, null);
+        controlPanel = new ControlPanel(stopListPanel, routeManager, activeRoute);
         visualPanel = new VisualPanel();
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, stopListPanel, visualPanel);
@@ -157,7 +157,11 @@ public class TransitAppUI extends JFrame {
             }
 
             Route loadedRoute = routeManager.getRoutes().get(0);
-            controlPanel.setRoute(loadedRoute);
+
+            getContentPane().removeAll();
+
+            add(buildRoutePanel(), BorderLayout.NORTH);
+            buildMainPanels(loadedRoute);
 
             stopListPanel.refresh(routeManager);
 
@@ -174,7 +178,8 @@ public class TransitAppUI extends JFrame {
         }
     }
 
-    // EFFECTS: saves routeManager to JSON file; displays confirmation message showing 
+    // EFFECTS: saves routeManager to JSON file; displays confirmation message
+    // showing
     // success or failure
     private void saveData() {
         try {
