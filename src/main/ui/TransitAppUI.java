@@ -9,6 +9,7 @@ import persistence.JsonWriter;
 import model.Route;
 
 import java.awt.*;
+import java.io.IOException;
 
 /* Represents the main graphical user interface for the TransitApp application
  * Displays list of stops, user controls for interacting with route,
@@ -28,7 +29,7 @@ public class TransitAppUI extends JFrame {
     private JButton loadButton;
     private JButton saveButton;
 
-    private static final String JSON_STORE = "./date/transit.json";
+    private static final String JSON_STORE = "./data/transit.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
@@ -85,6 +86,7 @@ public class TransitAppUI extends JFrame {
     // EFFECTS: builds and returns the panel for entering route number and name
     private JPanel buildRoutePanel() {
         JPanel routePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        routePanel.setPreferredSize(new Dimension(900, 50));
 
         routePanel.add(new JLabel("Route number:"));
         routePanel.add(routeNumberField);
@@ -93,6 +95,8 @@ public class TransitAppUI extends JFrame {
         routePanel.add(routeNameField);
 
         routePanel.add(createRouteButton);
+        routePanel.add(loadButton);
+        routePanel.add(saveButton);
 
         return routePanel;
     }
@@ -138,12 +142,42 @@ public class TransitAppUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: loads routeManager from JSON file and rebuilds GUI panels
     private void loadData() {
-        // stub
+        try {
+            routeManager = jsonReader.read();
+
+            if (routeManager.getRoutes().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No routes found in file.");
+                return;
+            }
+
+            Route loadedRoute = routeManager.getRoutes().get(0);
+
+            getContentPane().removeAll();
+            add(buildRoutePanel(), BorderLayout.NORTH);
+
+            buildMainPanels(loadedRoute);
+            revalidate();
+            repaint();
+
+            JOptionPane.showMessageDialog(this, "Date loaded successfully.");
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Unable to load data.");
+        }
     }
 
     // EFFECTS: saves routeManager to JSON file
     private void saveData() {
-        // stub
+        try {
+            jsonWriter.open();
+            jsonWriter.write(routeManager);
+            jsonWriter.close();
+
+            JOptionPane.showMessageDialog(this, "Data saved successfully.");
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Unable to save data.");
+        }
     }
 
     // EFFECTS: runs the TransitApp GUI application
