@@ -8,11 +8,12 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 import model.Route;
+import model.RouteManager;
 import model.Stop;
 
 /*
  * Represents the control panel in the TransitApp GUI that provides user actions
- * for adding and modifying stops.
+ * for adding and modifying stops in the active route.
  */
 @ExcludeFromJacocoGeneratedReport
 public class ControlPanel extends JPanel implements ActionListener {
@@ -22,7 +23,8 @@ public class ControlPanel extends JPanel implements ActionListener {
      * in CPSC 210
      * Phase 3 instructions (original source: StackOverflow/Oracle documentation).
      */
-    private Route model;
+    private RouteManager routeManager;
+    private Route activeRoute;
     private StopListPanel stopListPanel;
 
     private JComboBox<String> directionBox;
@@ -33,13 +35,15 @@ public class ControlPanel extends JPanel implements ActionListener {
     private JButton addStopButton;
     private JButton modifyStopButton;
 
+    // REQUIRES: stopListPanel and routeManager are not null
     // MODIFIES: this
-    // EFFECTS: initializes the control panel with input fields and buttons for
-    // adding and modifying stops; stores references to the stop list panel and
-    // model
-    public ControlPanel(StopListPanel stopListPanel, Route model) {
+    // EFFECTS: constructs new ControlPanel with accompanying StopListPanel and RouteManager
+    // and sets active route using the given value; initializes all input fields and action buttons
+    // to add/modify stops in active route. Note: ControlPanel edits only the active route.
+    public ControlPanel(StopListPanel stopListPanel, RouteManager routeManager, Route activeRoute) {
         this.stopListPanel = stopListPanel;
-        this.model = model;
+        this.routeManager = routeManager;
+        this.activeRoute = activeRoute;
 
         setupFields();
         setupButtons();
@@ -106,12 +110,16 @@ public class ControlPanel extends JPanel implements ActionListener {
             handleModifyStop();
         }
 
-        stopListPanel.refresh(model);
+        stopListPanel.refresh(routeManager);
     }
 
     // MODIFIES: model
     // EFFECTS: adds a new stop to the route using the input fields
     private void handleAddStop() {
+        if (activeRoute == null) {
+            return;
+        }
+
         String direction = (String) directionBox.getSelectedItem();
         String name = stopNameField.getText().trim();
         String idText = stopIdField.getText().trim();
@@ -124,18 +132,26 @@ public class ControlPanel extends JPanel implements ActionListener {
         int id = Integer.parseInt(idText);
 
         Stop stop = new Stop(direction, name, id, timingPoint);
-        model.addStop(stop);
+        activeRoute.addStop(stop);
     }
 
-    // MODIFIES: model
+    // MODIFIES: activeRoute
     // EFFECTS: modifies the selected stop using the input fields
     private void handleModifyStop() {
+        if (activeRoute == null) {
+            return;
+        }
+
         int index = stopListPanel.getSelectedIndex();
         if (index < 0) {
             return;
         }
 
-        Stop selected = model.getStops().get(index);
+        if (index >= activeRoute.getStops().size()) {
+            return;
+        }
+
+        Stop selected = activeRoute.getStops().get(index);
 
         String direction = (String) directionBox.getSelectedItem();
         String name = stopNameField.getText().trim();
@@ -156,6 +172,6 @@ public class ControlPanel extends JPanel implements ActionListener {
 
     // Setter for new route
     public void setRoute(Route newRoute) {
-        this.model = newRoute;
+        this.activeRoute = newRoute;
     }
 }
