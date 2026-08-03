@@ -153,9 +153,19 @@ public class TransitAppUI extends JFrame {
             Route loadedRoute = routeManager.getRoutes().get(0);
 
             getContentPane().removeAll();
-            add(buildRoutePanel(), BorderLayout.NORTH);
 
+            setupRouteFields();
+            setupPersistence();
+
+            add(buildRoutePanel(), BorderLayout.NORTH);
             buildMainPanels(loadedRoute);
+
+            controlPanel.setRoute(loadedRoute);
+            stopListPanel.refresh(loadedRoute);
+
+            routeNumberField.setText(Integer.toString(loadedRoute.getRouteNumber()));
+            routeNameField.setText(loadedRoute.getRouteName());
+            
             revalidate();
             repaint();
 

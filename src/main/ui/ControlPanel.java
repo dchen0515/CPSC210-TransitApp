@@ -153,4 +153,9 @@ public class ControlPanel extends JPanel implements ActionListener {
         selected.setStopID(id);
         selected.setTimingPoint(timingPoint);
     }
+
+    // Setter for new route
+    public void setRoute(Route newRoute) {
+        this.model = newRoute;
+    }
 }
