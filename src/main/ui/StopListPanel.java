@@ -5,7 +5,7 @@ import javax.swing.*;
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 
 import java.awt.*;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Route;
@@ -21,6 +21,7 @@ import model.Stop;
 public class StopListPanel extends JPanel {
     private DefaultListModel<String> model;
     private JList<String> list;
+    private java.util.List<Stop> indexToStop;
 
     // MODIFIES: this
     // EFFECTS: initializes the StopList panel with a scrollable JList
@@ -56,18 +57,25 @@ public class StopListPanel extends JPanel {
     // stop into a readable string, followed by a blank separator line
     public void refresh(RouteManager manager) {
         model.clear();
+        indexToStop = new ArrayList<>();
 
         for (Route route : manager.getRoutes()) {
+
             model.addElement("Stops for " + route.getRouteNumber() + " " + route.getRouteName());
+            indexToStop.add(null);
 
             for (Stop s : route.getStops()) {
                 String display = s.getDirection()
                         + " | " + s.getStopName()
                         + " | ID: " + s.getStopID()
                         + " | Timing point? " + (s.getIsTimingPoint() ? "Yes" : "No");
+
                 model.addElement("  " + display);
+                indexToStop.add(s);
             }
+
             model.addElement("");
+            indexToStop.add(null); 
         }
     }
 
@@ -80,8 +88,10 @@ public class StopListPanel extends JPanel {
     // EFFECTS: returns the Stop object corresponding to given JList index,
     // interpreting list as a multi-route stacked display. Returns null if
     // the index refers to a route header or a blank line
-    public Stop getStopAtIndex(RouteManager manager, int index) {
-        return new Stop(null, null, 0, false);
-        // stub
+    public Stop getStopAtIndex(int index) {
+        if (index < 0 || index >= indexToStop.size()) {
+            return null;
+        }
+        return indexToStop.get(index);
     }
 }

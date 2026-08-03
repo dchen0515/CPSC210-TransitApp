@@ -167,7 +167,7 @@ public class TransitAppUI extends JFrame {
             revalidate();
             repaint();
 
-            JOptionPane.showMessageDialog(this, "Date loaded successfully.");
+            JOptionPane.showMessageDialog(this, "Data loaded successfully.");
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Unable to load data.");

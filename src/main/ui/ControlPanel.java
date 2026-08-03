@@ -37,9 +37,12 @@ public class ControlPanel extends JPanel implements ActionListener {
 
     // REQUIRES: stopListPanel and routeManager are not null
     // MODIFIES: this
-    // EFFECTS: constructs new ControlPanel with accompanying StopListPanel and RouteManager
-    // and sets active route using the given value; initializes all input fields and action buttons
-    // to add/modify stops in active route. Note: ControlPanel edits only the active route.
+    // EFFECTS: constructs new ControlPanel with accompanying StopListPanel and
+    // RouteManager
+    // and sets active route using the given value; initializes all input fields and
+    // action buttons
+    // to add/modify stops in active route. Note: ControlPanel edits only the active
+    // route.
     public ControlPanel(StopListPanel stopListPanel, RouteManager routeManager, Route activeRoute) {
         this.stopListPanel = stopListPanel;
         this.routeManager = routeManager;
@@ -135,23 +138,18 @@ public class ControlPanel extends JPanel implements ActionListener {
         activeRoute.addStop(stop);
     }
 
-    // MODIFIES: activeRoute
-    // EFFECTS: modifies the selected stop using the input fields
+    // MODIFIES: selected stop
+    // EFFECTS: modifies the stop the user clicked using the input fields
     private void handleModifyStop() {
-        if (activeRoute == null) {
-            return;
-        }
-
         int index = stopListPanel.getSelectedIndex();
         if (index < 0) {
             return;
         }
 
-        if (index >= activeRoute.getStops().size()) {
+        Stop selected = stopListPanel.getStopAtIndex(index);
+        if (selected == null) {
             return;
         }
-
-        Stop selected = activeRoute.getStops().get(index);
 
         String direction = (String) directionBox.getSelectedItem();
         String name = stopNameField.getText().trim();
