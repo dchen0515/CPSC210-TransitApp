@@ -41,13 +41,23 @@ public class ControlPanel extends JPanel implements ActionListener {
         this.stopListPanel = stopListPanel;
         this.model = model;
 
+        setupFields();
+        setupButtons();
+        add(buildInputPanel());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes all text fields, combo boxes, and checkboxes
+    private void setupFields() {
         directionBox = new JComboBox<>(new String[] { "NB", "SB", "EB", "WB" });
         stopNameField = new JTextField(15);
         stopIdField = new JTextField(6);
         timingPointBox = new JCheckBox("Timing point?");
+    }
 
-        setLayout(new FlowLayout(FlowLayout.LEFT));
-
+    // MODIFIES: this
+    // EFFECTS: initializes buttons and attaches action listeners
+    private void setupButtons() {
         addStopButton = new JButton("Add Stop");
         addStopButton.setActionCommand("add");
         addStopButton.addActionListener(this);
@@ -55,20 +65,26 @@ public class ControlPanel extends JPanel implements ActionListener {
         modifyStopButton = new JButton("Modify Stop");
         modifyStopButton.setActionCommand("modify");
         modifyStopButton.addActionListener(this);
+    }
 
-        add(new JLabel("Direction(one of NB, SB, EB, WB):"));
-        add(directionBox);
+    // EFFECTS: builds and returns a panel containing all input fields and buttons
+    private JPanel buildInputPanel() {
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        add(new JLabel("Stop name:"));
-        add(stopNameField);
+        panel.add(new JLabel("Direction (one of NB, SB, EB, WB):"));
+        panel.add(directionBox);
 
-        add(new JLabel("Stop ID (5-digit positive integer beginning with 5 or 6):"));
-        add(stopIdField);
+        panel.add(new JLabel("Stop name:"));
+        panel.add(stopNameField);
 
-        add(timingPointBox);
+        panel.add(new JLabel("Stop ID (5-digit positive integer beginning with 5 or 6):"));
+        panel.add(stopIdField);
 
-        add(addStopButton);
-        add(modifyStopButton);
+        panel.add(timingPointBox);
+        panel.add(addStopButton);
+        panel.add(modifyStopButton);
+
+        return panel;
     }
 
     /*
