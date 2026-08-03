@@ -7,8 +7,8 @@ import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import java.awt.*;
 
 import java.util.List;
-import java.util.ArrayList;
 
+import model.Route;
 import model.Stop;
 
 /*
@@ -40,6 +40,22 @@ public class StopListPanel extends JPanel {
 
         for (Stop s : stops) {
             model.addElement(s.getStopName());
+        }
+    }
+
+    // REQUIRES: route must not be null
+    // MODIFIES: this
+    // EFFECTS: clears the current displayed stops, rebuilds the list using all stops 
+    // in the given route, and formats each stop into a readable string
+    public void refresh(Route route) {
+        model.clear();
+        for (Stop s : route.getStops()) {
+            String display = s.getDirection()
+                    + " | " + s.getStopName()
+                    + " | ID: " + s.getStopID()
+                    + " | Timing point? " + (s.getIsTimingPoint() ? "Yes" : "No");
+
+            model.addElement(display);
         }
     }
 }

@@ -3,6 +3,8 @@ package ui;
 import javax.swing.*;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+import model.RouteManager;
+import model.Route;
 
 import java.awt.*;
 
@@ -15,6 +17,7 @@ public class TransitAppUI extends JFrame {
     private StopListPanel stopListPanel;
     private ControlPanel controlPanel;
     private VisualPanel visualPanel;
+    private RouteManager routeManager;
 
     // MODIFIES: this
     // EFFECTS: sets up the main window for the TransitApp GUI and initializes
@@ -25,8 +28,13 @@ public class TransitAppUI extends JFrame {
         setPreferredSize(new Dimension(900, 600));
         setLayout(new BorderLayout());
 
+        routeManager = new RouteManager();
+
+        Route currentRoute = new Route(99, "UBC B-Line");
+        routeManager.addRoute(currentRoute);
+
         stopListPanel = new StopListPanel();
-        controlPanel = new ControlPanel(stopListPanel, this);
+        controlPanel = new ControlPanel(stopListPanel, currentRoute);
         visualPanel = new VisualPanel();
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, stopListPanel, visualPanel);

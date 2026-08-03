@@ -18,26 +18,35 @@ import model.Stop;
 public class ControlPanel extends JPanel implements ActionListener {
 
     /*
-     * NOTE: ActionListener pattern adapted from the "LabelChanger" example provided in CPSC 210
+     * NOTE: ActionListener pattern adapted from the "LabelChanger" example provided
+     * in CPSC 210
      * Phase 3 instructions (original source: StackOverflow/Oracle documentation).
      */
     private Route model;
     private StopListPanel stopListPanel;
 
+    private JComboBox<String> directionBox;
     private JTextField stopNameField;
+    private JTextField stopIdField;
+    private JCheckBox timingPointBox;
+
     private JButton addStopButton;
     private JButton modifyStopButton;
 
     // MODIFIES: this
-    // EFFECTS: initializes the control panel with input fields and buttons for 
-    // adding and modifying stops; stores references to the stop list panel and model
+    // EFFECTS: initializes the control panel with input fields and buttons for
+    // adding and modifying stops; stores references to the stop list panel and
+    // model
     public ControlPanel(StopListPanel stopListPanel, Route model) {
         this.stopListPanel = stopListPanel;
         this.model = model;
 
-        setLayout(new FlowLayout(FlowLayout.LEFT));
+        directionBox = new JComboBox<>(new String[] { "NB", "SB", "EB", "WB" });
+        stopNameField = new JTextField(15);
+        stopIdField = new JTextField(6);
+        timingPointBox = new JCheckBox("Timing point?");
 
-        stopNameField = new JTextField(20);
+        setLayout(new FlowLayout(FlowLayout.LEFT));
 
         addStopButton = new JButton("Add Stop");
         addStopButton.setActionCommand("add");
@@ -47,8 +56,17 @@ public class ControlPanel extends JPanel implements ActionListener {
         modifyStopButton.setActionCommand("modify");
         modifyStopButton.addActionListener(this);
 
+        add(new JLabel("Direction(one of NB, SB, EB, WB):"));
+        add(directionBox);
+
         add(new JLabel("Stop name:"));
         add(stopNameField);
+
+        add(new JLabel("Stop ID (5-digit positive integer beginning with 5 or 6):"));
+        add(stopIdField);
+
+        add(timingPointBox);
+
         add(addStopButton);
         add(modifyStopButton);
     }
@@ -56,28 +74,30 @@ public class ControlPanel extends JPanel implements ActionListener {
     /*
      * REQUIRES: e is not null
      * MODIFIES: this, model, stopListPanel
-     * EFFECTS: if action command is "add," adds a new stop with the name currently in the text field
-     * to the model; if action command is "modify," modifies the selected stop in the model using the 
+     * EFFECTS: if action command is "add," adds a new stop with the name currently
+     * in the text field
+     * to the model; if action command is "modify," modifies the selected stop in
+     * the model using the
      * text field value; refreshes the stop list panel to reflect changes.
      */
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
         String cmd = e.getActionCommand();
 
-        String name = stopNameField.getText().trim();
-
-        if (name.isEmpty()) {
-            return;
-        }
-
         if (cmd.equals("add")) {
-            Stop stop = new Stop("NB", "Stop1", 56789, false);
-            model.addStop(stop);
-        } else if (cmd.equals("modify")) {
-            if (!model.getStops().isEmpty()) {
-                Stop selected = model.getStops().get(0);
-                selected.modifyStopName(name);
+            String direction = (String) directionBox.getSelectedItem();
+            String name = stopNameField.getText().trim();
+            String idText = stopIdField.getText().trim();
+            boolean timingPoint = timingPointBox.isSelected();
+
+            if (name.isEmpty() || idText.isEmpty()) {
+                return;
             }
+
+            int id = Integer.parseInt(idText);
+
+            Stop stop = new Stop(direction, name, id, timingPoint);
+            model.addStop(stop);
         }
 
         stopListPanel.refresh(model);
