@@ -11,9 +11,10 @@ import model.Route;
 import java.awt.*;
 import java.io.IOException;
 
-/* Represents the main graphical user interface for the TransitApp application
- * Displays list of stops, user controls for interacting with route,
- * and the visual component.
+/* Represents the main graphical user interface for the TransitApp application.
+ * Allows users to create multiple routes and a list of stops in a stacked list, 
+ * and provides user controls for interacting with the active route. Also includes
+ * a visual component (bus images).
  */
 @ExcludeFromJacocoGeneratedReport
 public class TransitAppUI extends JFrame {
@@ -21,6 +22,8 @@ public class TransitAppUI extends JFrame {
     private ControlPanel controlPanel;
     private VisualPanel visualPanel;
     private RouteManager routeManager;
+
+    private JPanel routePanel;
 
     private JTextField routeNumberField;
     private JTextField routeNameField;
@@ -35,7 +38,7 @@ public class TransitAppUI extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: sets up the main window for the TransitApp GUI and initializes
-    // all UI panels (stop list, controls, route creation, visual component)
+    // all UI panels (route + stop list, controls, visual component)
     public TransitAppUI() {
         setupFrame();
         setupRouteFields();
@@ -44,6 +47,7 @@ public class TransitAppUI extends JFrame {
         routeManager = new RouteManager();
 
         add(buildRoutePanel(), BorderLayout.NORTH);
+        buildMainPanels();
 
         pack();
         setVisible(true);
@@ -85,7 +89,7 @@ public class TransitAppUI extends JFrame {
 
     // EFFECTS: builds and returns the panel for entering route number and name
     private JPanel buildRoutePanel() {
-        JPanel routePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        routePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         routePanel.setPreferredSize(new Dimension(900, 50));
 
         routePanel.add(new JLabel("Route number:"));
@@ -101,11 +105,26 @@ public class TransitAppUI extends JFrame {
         return routePanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: builds and adds the stop list panel, control panel, and visual
+    // panel to the main window; only called once on startup
+    private void buildMainPanels() {
+        stopListPanel = new StopListPanel();
+        controlPanel = new ControlPanel(stopListPanel, routeManager, null);
+        visualPanel = new VisualPanel();
+
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, stopListPanel, visualPanel);
+        splitPane.setResizeWeight(0.5);
+        splitPane.setDividerLocation(450);
+
+        add(splitPane, BorderLayout.CENTER);
+        add(controlPanel, BorderLayout.SOUTH);
+    }
+
     // REQUIRES: routeNumberField and routeNameField have valid text
-    // MODIFIES: this, routeManager
+    // MODIFIES: routeManager, controlPanel, stopListPanel
     // EFFECTS: creates a new Route using the operator input, adds it to the
-    // manager, and initializes stop list panel, control panel, and visual
-    // panel for interacting with this route
+    // manager, and refreshes stop list panel to show all routes
     public void handleCreateRoute() {
         String numText = routeNumberField.getText().trim();
         String name = routeNameField.getText().trim();
@@ -118,29 +137,16 @@ public class TransitAppUI extends JFrame {
         Route currentRoute = new Route(routeNum, name);
         routeManager.addRoute(currentRoute);
 
-        buildMainPanels(currentRoute);
+        controlPanel.setRoute(currentRoute);
+        stopListPanel.refresh(routeManager);
         revalidate();
         repaint();
     }
 
     // MODIFIES: this
-    // EFFECTS: builds and adds the stop list panel, control panel, and visual
-    // panel for the given route to the main window
-    private void buildMainPanels(Route currentRoute) {
-        stopListPanel = new StopListPanel();
-        controlPanel = new ControlPanel(stopListPanel, currentRoute);
-        visualPanel = new VisualPanel();
-
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, stopListPanel, visualPanel);
-        splitPane.setResizeWeight(0.5);
-        splitPane.setDividerLocation(450);
-
-        add(splitPane, BorderLayout.CENTER);
-        add(controlPanel, BorderLayout.SOUTH);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: loads routeManager from JSON file and rebuilds GUI panels
+    // EFFECTS: loads routeManager from JSON file, sets first route as active, and
+    // refreshes StopListPanel to display all routes; updates route creation fields
+    // to match active route
     private void loadData() {
         try {
             routeManager = jsonReader.read();
@@ -151,21 +157,13 @@ public class TransitAppUI extends JFrame {
             }
 
             Route loadedRoute = routeManager.getRoutes().get(0);
-
-            getContentPane().removeAll();
-
-            setupRouteFields();
-            setupPersistence();
-
-            add(buildRoutePanel(), BorderLayout.NORTH);
-            buildMainPanels(loadedRoute);
-
             controlPanel.setRoute(loadedRoute);
-            stopListPanel.refresh(loadedRoute);
+
+            stopListPanel.refresh(routeManager);
 
             routeNumberField.setText(Integer.toString(loadedRoute.getRouteNumber()));
             routeNameField.setText(loadedRoute.getRouteName());
-            
+
             revalidate();
             repaint();
 
@@ -176,7 +174,8 @@ public class TransitAppUI extends JFrame {
         }
     }
 
-    // EFFECTS: saves routeManager to JSON file
+    // EFFECTS: saves routeManager to JSON file; displays confirmation message showing 
+    // success or failure
     private void saveData() {
         try {
             jsonWriter.open();
