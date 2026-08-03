@@ -19,6 +19,7 @@ import java.io.IOException;
 @ExcludeFromJacocoGeneratedReport
 public class TransitAppUI extends JFrame {
     private StopListPanel stopListPanel;
+    private OperatorMessagePanel operatorMessagePanel;
     private ControlPanel controlPanel;
     private VisualPanel visualPanel;
     private RouteManager routeManager;
@@ -110,7 +111,8 @@ public class TransitAppUI extends JFrame {
     // panel to the main window; only called once on startup
     private void buildMainPanels(Route activeRoute) {
         stopListPanel = new StopListPanel();
-        controlPanel = new ControlPanel(stopListPanel, routeManager, activeRoute);
+        operatorMessagePanel = new OperatorMessagePanel();
+        controlPanel = new ControlPanel(stopListPanel, operatorMessagePanel, routeManager, activeRoute);
         visualPanel = new VisualPanel();
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, stopListPanel, visualPanel);
