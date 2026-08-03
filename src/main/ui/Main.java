@@ -7,9 +7,13 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.util.Scanner;
+
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
 import java.util.List;
 
 // Represents the console application interface for the bus route system
+@ExcludeFromJacocoGeneratedReport
 public class Main {
 
     private Scanner input;
