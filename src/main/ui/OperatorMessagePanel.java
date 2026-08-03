@@ -31,9 +31,16 @@ public class OperatorMessagePanel extends JPanel {
         model.clear();
 
         for (Route route : manager.getRoutes()) {
+            model.addElement("Route " + route.getRouteNumber() + " " + route.getRouteName());
+
             for (String msg : route.getOperatorMessages()) {
-                model.addElement(route.getRouteNumber() + ": " + msg);
+                model.addElement("  - " + msg);
             }
+            model.addElement("");
+        }
+
+        if (model.isEmpty()) {
+            model.addElement("(No operator messages recorded)");
         }
     }
 }

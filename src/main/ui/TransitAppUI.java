@@ -137,14 +137,19 @@ public class TransitAppUI extends JFrame {
 
         recordMessageButton.setActionCommand("operator");
         recordMessageButton.addActionListener(controlPanel);
-        
+
         visualPanel = new VisualPanel();
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, stopListPanel, visualPanel);
-        splitPane.setResizeWeight(0.5);
-        splitPane.setDividerLocation(450);
+        JSplitPane leftPane = new JSplitPane(
+                JSplitPane.VERTICAL_SPLIT,
+                stopListPanel,
+                operatorMessagePanel);
+        leftPane.setResizeWeight(0.7);
+        
+        JSplitPane mainPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPane, visualPanel);
+        mainPane.setResizeWeight(0.5);
 
-        add(splitPane, BorderLayout.CENTER);
+        add(mainPane, BorderLayout.CENTER);
         add(controlPanel, BorderLayout.SOUTH);
     }
 
