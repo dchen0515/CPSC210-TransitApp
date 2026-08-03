@@ -7,6 +7,9 @@ import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+import model.Route;
+import model.Stop;
+
 /*
  * Represents the control panel in the TransitApp GUI that provides user actions
  * for adding and modifying stops.
@@ -18,7 +21,7 @@ public class ControlPanel extends JPanel implements ActionListener {
      * NOTE: ActionListener pattern adapted from the "LabelChanger" example provided in CPSC 210
      * Phase 3 instructions (original source: StackOverflow/Oracle documentation).
      */
-    private TransitAppUI model;
+    private Route model;
     private StopListPanel stopListPanel;
 
     private JTextField stopNameField;
@@ -28,7 +31,7 @@ public class ControlPanel extends JPanel implements ActionListener {
     // MODIFIES: this
     // EFFECTS: initializes the control panel with input fields and buttons for 
     // adding and modifying stops; stores references to the stop list panel and model
-    public ControlPanel(StopListPanel stopListPanel, TransitAppUI model) {
+    public ControlPanel(StopListPanel stopListPanel, Route model) {
         this.stopListPanel = stopListPanel;
         this.model = model;
 
@@ -59,6 +62,24 @@ public class ControlPanel extends JPanel implements ActionListener {
      */
     @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
-        // stub
+        String cmd = e.getActionCommand();
+
+        String name = stopNameField.getText().trim();
+
+        if (name.isEmpty()) {
+            return;
+        }
+
+        if (cmd.equals("add")) {
+            Stop stop = new Stop("NB", "Stop1", 56789, false);
+            model.addStop(stop);
+        } else if (cmd.equals("modify")) {
+            if (!model.getStops().isEmpty()) {
+                Stop selected = model.getStops().get(0);
+                selected.modifyStopName(name);
+            }
+        }
+
+        stopListPanel.refresh(model);
     }
 }
