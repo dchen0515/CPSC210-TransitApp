@@ -1,11 +1,19 @@
 package ui;
 
 import javax.swing.*;
+
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
 import java.awt.*;
 
 import model.Route;
 import model.RouteManager;
 
+/*
+ * Represents the panel in the TransitApp GUI that displays all operator messages
+ * recorded by the user.
+ */
+@ExcludeFromJacocoGeneratedReport
 public class OperatorMessagePanel extends JPanel {
     private DefaultListModel<String> model;
     private JList<String> list;
