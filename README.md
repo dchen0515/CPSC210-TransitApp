@@ -12,3 +12,11 @@ My personal project is a bus operator's information console, modelled from real 
 **Phase 2 (Data Persistence): User Stories**
 - As a bus operator, if I select the quit option, I want to be reminded to save all route, stop, and operator message data, and have the option to do so or not.
 - As a bus operator, I want to be given the option to load all route, stop, and operator message data, so I can resume where I left off.
+
+# Instructions for End User
+- You can view the panel that displays the Xs that have already been added to the Y by looking at the *Stop List Panel* on the left side of the GUI. This panel displays all stops that have been added to the active route.
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by filling in the stop fields (direction, name, ID, timing point) and clickind the **Add Stop** button in the bottom bar.
+- You can generate the second required action related to the user story "adding multiple Xs to a Y" by clicking on an existing stop in the *Stop List panel*, editing the fields, then clicking the **Modify Stop** button.
+- You can locate my visual component by looking at the *Visual Panel* on the right side of the GUI, which contains several transit-related images that satisfy the required visual component.
+- You can save the state of my application by clicking the **Save Data** button in the top bar of the GUI. This will write all routes, stops, and operator messages to a JSON file titled `transit.json`.
+- You can reload the state of my application by clicking the **Load Data** button in the top bar of the GUI. This will read all saved data from `transit.json` and display it in the GUI.
