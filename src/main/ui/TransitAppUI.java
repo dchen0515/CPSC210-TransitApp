@@ -145,7 +145,7 @@ public class TransitAppUI extends JFrame {
                 stopListPanel,
                 operatorMessagePanel);
         leftPane.setResizeWeight(0.7);
-        
+
         JSplitPane mainPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPane, visualPanel);
         mainPane.setResizeWeight(0.5);
 
@@ -214,8 +214,7 @@ public class TransitAppUI extends JFrame {
     }
 
     // EFFECTS: saves routeManager to JSON file; displays confirmation message
-    // showing
-    // success or failure
+    // showing success or failure
     private void saveData() {
         try {
             jsonWriter.open();

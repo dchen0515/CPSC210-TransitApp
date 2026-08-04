@@ -21,8 +21,8 @@ import model.Stop;
 public class StopListPanel extends JPanel {
     private DefaultListModel<String> model;
     private JList<String> list;
+    
     private java.util.List<Stop> indexToStop;
-
     private java.util.List<Route> indexToRoute;
 
     // MODIFIES: this

@@ -207,8 +207,7 @@ public class ControlPanel extends JPanel implements ActionListener {
 
     // MODIFIES: routeManager
     // EFFECTS: records an operator message for selected route; if no route
-    // selected,
-    // records message for activeRoute
+    // selected, records message for activeRoute
     private void handleOperatorMessage() {
         Route target = determineTargetRoute();
         if (target == null) {
