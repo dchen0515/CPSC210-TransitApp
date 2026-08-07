@@ -6,10 +6,16 @@ import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.RouteManager;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import model.Event;
+import model.EventLog;
 import model.Route;
 
 import java.awt.*;
 import java.io.IOException;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 
 /* Represents the main graphical user interface for the TransitApp application.
  * Allows users to create multiple routes and a list of stops in a stacked list, 
@@ -53,6 +59,17 @@ public class TransitAppUI extends JFrame {
         add(buildRoutePanel(), BorderLayout.NORTH);
         buildMainPanels(null);
 
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for (Event next : EventLog.getInstance()) {
+                    System.out.println(next.toString());
+                }
+                dispose();
+                System.exit(0);
+            }
+        });
+
         pack();
         setVisible(true);
     }
@@ -62,7 +79,7 @@ public class TransitAppUI extends JFrame {
     // layout)
     private void setupFrame() {
         setTitle("Transit Application");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setPreferredSize(new Dimension(900, 600));
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
