@@ -42,7 +42,8 @@ public class Route {
             throw new IllegalArgumentException("Stop cannot be null");
         } else {
             stops.add(s);
-            EventLog.getInstance().logEvent(new Event("Stop added to route " + routeNumber + ": " + s.returnStop()));
+            EventLog.getInstance().logEvent(
+                new Event("Stop added to route " + routeNumber + " " + routeName + ": " + s.returnStop()));
         }
     }
 
