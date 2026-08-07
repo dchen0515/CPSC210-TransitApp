@@ -41,8 +41,8 @@ public class Route {
             throw new IllegalArgumentException("Stop cannot be null");
         } else {
             stops.add(s);
+            EventLog.getInstance().logEvent(new Event("Stop added to route " + routeNumber + ": " + s.returnStop()));
         }
-        EventLog.getInstance().logEvent(new Event("Stop added to route " + routeNumber + ": " + s.returnStop()));
     }
 
     // EFFECTS: returns a list of formatted stops
@@ -67,9 +67,9 @@ public class Route {
             throw new IllegalArgumentException("Message is invalid");
         } else {
             operatorMessages.add(msg);
+            EventLog.getInstance().logEvent(
+                new Event("Operator message recorded for route " + routeNumber + " " + routeName));
         }
-        EventLog.getInstance().logEvent(
-            new Event("Operator message recorded for route " + routeNumber + " " + routeName));
     }
 
     // Getters
