@@ -42,6 +42,7 @@ public class Route {
         } else {
             stops.add(s);
         }
+        EventLog.getInstance().logEvent(new Event("Stop added to route " + routeNumber + ": " + s.returnStop()));
     }
 
     // EFFECTS: returns a list of formatted stops
@@ -67,6 +68,8 @@ public class Route {
         } else {
             operatorMessages.add(msg);
         }
+        EventLog.getInstance().logEvent(
+            new Event("Operator message recorded for route " + routeNumber + " " + routeName));
     }
 
     // Getters
@@ -85,7 +88,7 @@ public class Route {
     public List<String> getOperatorMessages() {
         return operatorMessages;
     }
-
+    
     // MODIFIES: this
     // EFFECTS: returns JSON representation of this Route
     public JSONObject toJson() {
