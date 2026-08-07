@@ -39,12 +39,13 @@ public class Stop {
     // REQUIRES: newName is not an empty string
     // MODIFIES: this
     // EFFECTS: changes a stop name to reflect changes that may apply to multiple
-    // routes in the system
+    // routes in the system, and logs this change in the EventLog
     public void modifyStopName(String newName) {
         if (newName.isEmpty()) {
             throw new IllegalArgumentException("New stop name is invalid");
         } else {
             this.stopName = newName;
+            EventLog.getInstance().logEvent(new Event("Stop name changed to: " + newName));
         }
     }
 
@@ -68,18 +69,22 @@ public class Stop {
     // Setters
     public void setDirection(String direction) {
         this.direction = direction;
+        EventLog.getInstance().logEvent(new Event("Stop direction changed to: " + direction));
     }
 
     public void setStopName(String stopName) {
         this.stopName = stopName;
+        EventLog.getInstance().logEvent(new Event("Stop name changed to: " + stopName));
     }
 
     public void setStopID(int stopID) {
         this.stopID = stopID;
+        EventLog.getInstance().logEvent(new Event("Stop ID changed to: " + stopID));
     }
 
     public void setTimingPoint(boolean isTimingPoint) {
         this.isTimingPoint = isTimingPoint;
+        EventLog.getInstance().logEvent(new Event("Stop timing point flag changed to: " + isTimingPoint));
     }
 
     // MODIFIES: this
