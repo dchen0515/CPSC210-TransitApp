@@ -68,23 +68,31 @@ public class Stop {
 
     // Setters
     public void setDirection(String direction) {
-        this.direction = direction;
-        EventLog.getInstance().logEvent(new Event("Stop direction changed to: " + direction));
+        if (this.direction != direction) {
+            this.direction = direction;
+            EventLog.getInstance().logEvent(new Event("Stop direction changed to: " + direction));
+        }
     }
 
     public void setStopName(String stopName) {
-        this.stopName = stopName;
-        EventLog.getInstance().logEvent(new Event("Stop name changed to: " + stopName));
+        if (this.stopName != stopName) {
+            this.stopName = stopName;
+            EventLog.getInstance().logEvent(new Event("Stop name changed to: " + stopName));
+        }
     }
 
     public void setStopID(int stopID) {
-        this.stopID = stopID;
-        EventLog.getInstance().logEvent(new Event("Stop ID changed to: " + stopID));
+        if (this.stopID != stopID) {
+            this.stopID = stopID;
+            EventLog.getInstance().logEvent(new Event("Stop ID changed to: " + stopID));
+        }
     }
 
     public void setTimingPoint(boolean isTimingPoint) {
-        this.isTimingPoint = isTimingPoint;
-        EventLog.getInstance().logEvent(new Event("Stop timing point flag changed to: " + isTimingPoint));
+        if (this.isTimingPoint != isTimingPoint) {
+            this.isTimingPoint = isTimingPoint;
+            EventLog.getInstance().logEvent(new Event("Stop timing point flag changed to: " + isTimingPoint));
+        }
     }
 
     // MODIFIES: this
