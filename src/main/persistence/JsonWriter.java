@@ -3,6 +3,8 @@
 
 package persistence;
 
+import model.Event;
+import model.EventLog;
 import model.RouteManager;
 import org.json.JSONObject;
 
@@ -28,10 +30,13 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of RouteManager to file
+    // EFFECTS: writes JSON representation of RouteManager to file, and logs this
+    // change in the EventLog
     public void write(RouteManager rm) {
         JSONObject json = rm.toJson();
         saveToFile(json.toString(TAB));
+
+        EventLog.getInstance().logEvent(new Event("Data saved to file"));
     }
 
     // MODIFIES: this
