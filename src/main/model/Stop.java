@@ -68,14 +68,14 @@ public class Stop {
 
     // Setters
     public void setDirection(String direction) {
-        if (this.direction != direction) {
+        if (!this.direction.equals(direction)) {
             this.direction = direction;
             EventLog.getInstance().logEvent(new Event("Stop direction changed to: " + direction));
         }
     }
 
     public void setStopName(String stopName) {
-        if (this.stopName != stopName) {
+        if (!this.stopName.equals(stopName)) {
             this.stopName = stopName;
             EventLog.getInstance().logEvent(new Event("Stop name changed to: " + stopName));
         }

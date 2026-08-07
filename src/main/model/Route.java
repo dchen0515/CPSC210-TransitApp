@@ -70,7 +70,7 @@ public class Route {
         } else {
             operatorMessages.add(msg);
             EventLog.getInstance().logEvent(
-                new Event("Operator message recorded for route " + routeNumber + " " + routeName));
+                new Event("Operator message recorded for route " + routeNumber + " " + routeName + ": " + msg));
         }
     }
 
