@@ -3,6 +3,8 @@
 
 package persistence;
 
+import model.Event;
+import model.EventLog;
 import model.Route;
 import model.Stop;
 import model.RouteManager;
@@ -61,12 +63,15 @@ public class JsonReader {
     }
 
     // MODIFIES: rm
-    // EFFECTS: parses route from JSON object and adds it to the route manager
+    // EFFECTS: parses route from JSON object and adds it to the route manager, and logs
+    // this change in the EventLog
     private void addRoute(RouteManager rm, JSONObject jsonObject) {
         int routeNumber = jsonObject.getInt("routeNumber");
         String routeName = jsonObject.getString("routeName");
         
         Route route = new Route(routeNumber, routeName);
+
+        EventLog.getInstance().logEvent(new Event("Route loaded: " + routeNumber + " " + routeName));
         
         addStops(route, jsonObject);
         addOperatorMessages(route, jsonObject);
