@@ -35,7 +35,8 @@ public class Route {
 
     // REQUIRES: stop s is not null
     // MODIFIES: this
-    // EFFECTS: adds stop s to this route's stop list
+    // EFFECTS: adds stop s to this route's stop list, and logs this change 
+    // in the EventLog
     public void addStop(Stop s) {
         if (s == null) {
             throw new IllegalArgumentException("Stop cannot be null");
@@ -61,7 +62,8 @@ public class Route {
 
     // REQUIRES: msg is not an empty string
     // MODIFIES: this
-    // EFFECTS: adds a new operator message to the list of messages
+    // EFFECTS: adds a new operator message to the list of messages, and logs this change
+    // in the EventLog
     public void recordOperatorMessage(String msg) {
         if (msg.isEmpty()) {
             throw new IllegalArgumentException("Message is invalid");
