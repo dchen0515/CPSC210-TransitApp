@@ -10,7 +10,7 @@ import java.util.Iterator;
  */
 
 /**
- * Represents a log of alarm system events.
+ * Represents a log of TransitApp events.
  * We use the Singleton Design Pattern to ensure that there is only
  * one EventLog in the system and that the system has global access
  * to the single instance of the EventLog.
