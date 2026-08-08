@@ -58,3 +58,6 @@ Operator message recorded for route 403 BRIDGEPORT STN: All northbound trips del
 Fri Aug 07 15:38:25 PDT 2026
 Data saved to file
 ```
+
+# Phase 4: Section 3
+If given more time to work on the project, I would refactor the UI layer to introduce an abstract base class for all my JPanel components (specifically StopListPanel, OperatorMessagePanel, VisualPanel, and ControlPanel). In my current design, each of these classes handles layout, styling, and component initialization independently. This leads to duplicated code and inconsistent structure across the UI. If implemented, a shared abstract superclass could provide common behaviour across all panels, such as standardized layouts, shared helper methods, or consistent styling conventions. This would remove duplication and make it easier to change the UI across all panels. The tradeoff is that adding an abstract UI base class introduces an additional abstraction layer, and my current design is simple enough such that duplication is not harmful. However, as the UI increases in complexity and/or the number of features, standardizing shared behaviour would make my code maintainable and consistent in the long term.
