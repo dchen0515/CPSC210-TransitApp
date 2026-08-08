@@ -24,6 +24,7 @@ My personal project is a bus operator's information console, modelled from real 
 # Phase 4: Task 2
 Below is a representative sample of events produced during a typical run of the application:
 
+```
 Fri Aug 07 15:33:45 PDT 2026
 Stop ID changed to: 56529
 Fri Aug 07 15:34:07 PDT 2026
@@ -56,3 +57,4 @@ Fri Aug 07 15:38:23 PDT 2026
 Operator message recorded for route 403 BRIDGEPORT STN: All northbound trips delayed due to traffic near Steveston Hwy and Hwy 99
 Fri Aug 07 15:38:25 PDT 2026
 Data saved to file
+```
