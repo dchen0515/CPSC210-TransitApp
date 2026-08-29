@@ -1,0 +1,57 @@
+{"routes": [
+    {
+        "routeNumber": 402,
+        "operatorMessages": ["Trip delayed by 10 mins due to traffic"],
+        "stops": [
+            {
+                "isTimingPoint": false,
+                "stopID": 56529,
+                "stopName": "NO 2 RD AT WILLIAMS RD",
+                "direction": "NB"
+            },
+            {
+                "isTimingPoint": false,
+                "stopID": 56539,
+                "stopName": "BLUNDELL RD AT GILBERT RD",
+                "direction": "EB"
+            },
+            {
+                "isTimingPoint": true,
+                "stopID": 60482,
+                "stopName": "RICHMOND-BRIGHOUSE STN AT BAY 2 UNLOADING ONLY",
+                "direction": "EB"
+            }
+        ],
+        "routeName": "BRIGHOUSE STN"
+    },
+    {
+        "routeNumber": 99,
+        "operatorMessages": ["UBC Exchange closed temporarily due to bus accident. Unloading all passengers at stop University Blvd at Western Pkwy."],
+        "stops": [
+            {
+                "isTimingPoint": true,
+                "stopID": 50913,
+                "stopName": "COMMERCIAL-BROADWAY STN AT BAY 5",
+                "direction": "WB"
+            },
+            {
+                "isTimingPoint": false,
+                "stopID": 50357,
+                "stopName": "ALMA ST AT W 10 AVE",
+                "direction": "SB"
+            }
+        ],
+        "routeName": "UBC B-LINE"
+    },
+    {
+        "routeNumber": 403,
+        "operatorMessages": ["All northbound trips delayed due to traffic near Steveston Hwy and Hwy 99"],
+        "stops": [{
+            "isTimingPoint": false,
+            "stopID": 56542,
+            "stopName": "NO 3 RD AT BLUNDELL RD",
+            "direction": "NB"
+        }],
+        "routeName": "BRIDGEPORT STN"
+    }
+]}

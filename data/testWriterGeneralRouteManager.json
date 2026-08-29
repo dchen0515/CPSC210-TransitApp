@@ -1,5 +1,6 @@
 {"routes": [{
     "routeNumber": 402,
+    "operatorMessages": ["5-min delay on Cambie St due to traffic"],
     "stops": [
         {
             "isTimingPoint": false,
@@ -14,6 +15,5 @@
             "direction": "EB"
         }
     ],
-    "operatorMessage": "5-min delay on Cambie St due to traffic",
     "routeName": "TWO ROAD"
 }]}

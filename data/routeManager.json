@@ -1,19 +1,14 @@
 {"routes": [{
-    "routeNumber": 403,
-    "stops": [
-        {
-            "isTimingPoint": false,
-            "stopID": 56789,
-            "stopName": "STEVESTON HWY AND HWY 99",
-            "direction": "NB"
-        },
-        {
-            "isTimingPoint": true,
-            "stopID": 67898,
-            "stopName": "NO 3 RD AT LANSDOWNE RD",
-            "direction": "NB"
-        }
+    "routeNumber": 25,
+    "operatorMessages": [
+        "Delays on Kingsway",
+        "Bunching at Dunbar and 22nd"
     ],
-    "operatorMessage": "Delays at Riverport",
-    "routeName": "THREE ROAD"
+    "stops": [{
+        "isTimingPoint": true,
+        "stopID": 56789,
+        "stopName": "King Edward and Oak",
+        "direction": "WB"
+    }],
+    "routeName": "UBC"
 }]}

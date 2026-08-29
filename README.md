@@ -1,63 +1,40 @@
-# My Personal Project: a Bus Operator's Information Console
+# Bus Operator Information Console
 
-## Project Description:
-My personal project is a bus operator's information console, modelled from real consoles found on all TransLink buses in the Metro Vancouver region. The application has a basic menu, and allows for viewing the route number and the full list of stops on the route. It also has a feature to simulate contacting a central "Transit Communications" network by radio. In addition, a system administrator can add bus stops to existing routes, and change stop names that might affect multiple different bus routes. The intended user is a bus operator interacting with the console while driving the bus, as well as a system administrator handling behind the scenes updates. This project is of interest to me because I have been passionate about public transit in the Metro Vancouver area since I was two years old, when my parents first took me to ride the Canada Line when it opened in 2009. Recently, I have become more interested in the computational side of features of TransLink buses, such as the information console that my project is modelled from, as well as the programs that go into running the LED displays on buses.
+## Project Description
+This project is a bus operator’s information console, modeled after the onboard consoles used on TransLink buses in Metro Vancouver. The application provides a simple, interactive GUI that allows bus operators to view route information, browse full stop lists, and simulate sending operational radio messages to a central “Transit Communications” system. 
 
-**Phase 1 (Console-based application): User Stories**
-- As a system administrator, I want to be able to add a bus stop to an existing list of stops on a bus route.
-- As a bus operator, I want be able to view the full list of all the stops on a particular route to verify the full sequence of stops.
-- As a system administrator, I want to be able to modify a stop name so it reflects changes that may apply to multiple routes in the system.
-- As a bus operator, I want to be able to simulate contacting Transit Communications by entering an operational message to practice sending radio communications.
+A system administrator can update the transit network by adding new stops to existing routes or modifying stop names that appear across multiple routes.  
 
-**Phase 2 (Data Persistence): User Stories**
-- As a bus operator, if I select the quit option, I want to be reminded to save all route, stop, and operator message data, and have the option to do so or not.
-- As a bus operator, I want to be given the option to load all route, stop, and operator message data, so I can resume where I left off.
+This project reflects my long-standing interest in public transit. I have been passionate about Metro Vancouver’s transit system since early childhood, beginning with my first ride on the Canada Line in 2009. More recently, I’ve become fascinated by the computational systems behind buses, such as operator consoles and LED destination sign programming, which inspired the design and functionality of this application.
 
-# Instructions for End User
-- You can view the panel that displays the Xs that have already been added to the Y by looking at the *Stop List Panel* on the left side of the GUI. This panel displays all stops that have been added to the active route.
-- You can generate the first required action related to the user story "adding multiple Xs to a Y" by filling in the stop fields (direction, name, ID, timing point) and clickind the **Add Stop** button in the bottom bar.
-- You can generate the second required action related to the user story "adding multiple Xs to a Y" by clicking on an existing stop in the *Stop List panel*, editing the fields, then clicking the **Modify Stop** button.
-- You can locate my visual component by looking at the *Visual Panel* on the right side of the GUI, which contains several transit-related images that satisfy the required visual component.
-- You can save the state of my application by clicking the **Save Data** button in the top bar of the GUI. This will write all routes, stops, and operator messages to a JSON file titled `transit.json`.
-- You can reload the state of my application by clicking the **Load Data** button in the top bar of the GUI. This will read all saved data from `transit.json` and display it in the GUI.
+## Core Features
+- Add new bus stops to existing routes  
+- View full stop lists for any route  
+- Modify stop names across multiple routes  
+- Simulate operator radio messages to Transit Communications  
 
-# Phase 4: Task 2
-Below is a representative sample of events produced during a typical run of the application:
+## Data Persistence
+- Save all route, stop, and operator message data to a JSON file  
+- Load previously saved data to restore the application state  
 
-```
-Fri Aug 07 15:33:45 PDT 2026
-Stop ID changed to: 56529
-Fri Aug 07 15:34:07 PDT 2026
-Stop added to route 402 BRIGHOUSE STN: EB Blundell at Gilbert - Stop number: 56539 - Timing point? false
-Fri Aug 07 15:34:23 PDT 2026
-Stop name changed to: BLUNDELL RD AT GILBERT RD
-Fri Aug 07 15:34:49 PDT 2026
-Stop added to route 402 BRIGHOUSE STN: NB RICHMOND-BRIGHOUSE STN AT BAY 2 UNLOADING ONLY - Stop number: 60482 - Timing point? false
-Fri Aug 07 15:35:03 PDT 2026
-Stop direction changed to: EB
-Fri Aug 07 15:35:03 PDT 2026
-Stop timing point flag changed to: true
-Fri Aug 07 15:35:22 PDT 2026
-Operator message recorded for route 402 BRIGHOUSE STN: Trip delayed by 10 mins due to traffic
-Fri Aug 07 15:35:53 PDT 2026
-Operator message recorded for route 99 UBC B-LINE: UBC Exchange closed temporarily due to bus accident. Unloading all passengers at stop University Blvd at Western Pkwy.
-Fri Aug 07 15:36:33 PDT 2026
-Stop added to route 99 UBC B-LINE: WB COMMERCIAL-BROADWAY STN AT BAY 5 - Stop number: 50000 - Timing point? false
-Fri Aug 07 15:36:41 PDT 2026
-Stop ID changed to: 50913
-Fri Aug 07 15:36:41 PDT 2026
-Stop timing point flag changed to: true
-Fri Aug 07 15:37:24 PDT 2026
-Stop added to route 99 UBC B-LINE: SB ALMA ST AT W 10 AVE - Stop number: 50357 - Timing point? false
-Fri Aug 07 15:37:27 PDT 2026
-Data saved to file
-Fri Aug 07 15:37:59 PDT 2026
-Stop added to route 403 BRIDGEPORT STN: NB NO 3 RD AT BLUNDELL RD - Stop number: 56542 - Timing point? false
-Fri Aug 07 15:38:23 PDT 2026
-Operator message recorded for route 403 BRIDGEPORT STN: All northbound trips delayed due to traffic near Steveston Hwy and Hwy 99
-Fri Aug 07 15:38:25 PDT 2026
-Data saved to file
-```
+## How to Run
+1. Clone this repository  
+2. Open the project in VS Code or IntelliJ  
+3. Run the `TransitAppUI` class in the ui package 
+4. The GUI will launch automatically  
 
-# Phase 4: Section 3
-If given more time to work on the project, I would refactor the UI layer to introduce an abstract base class for all my JPanel components (specifically StopListPanel, OperatorMessagePanel, VisualPanel, and ControlPanel). In my current design, each of these classes handles layout, styling, and component initialization independently. This leads to duplicated code and inconsistent structure across the UI. If implemented, a shared abstract superclass could provide common behaviour across all panels, such as standardized layouts, shared helper methods, or consistent styling conventions. This would remove duplication and make it easier to change the UI across all panels. The tradeoff is that adding an abstract UI base class introduces an additional abstraction layer, and my current design is simple enough such that duplication is not harmful. However, as the UI increases in complexity and/or the number of features, standardizing shared behaviour would make my code maintainable and consistent in the long term.
+## Instructions for End Users
+- View all stops added to the active route in the **Stop List Panel** on the left side of the GUI.  
+- Add a new stop by filling in the stop fields (direction, name, ID, timing point) and clicking **Add Stop**.  
+- Modify an existing stop by selecting it in the Stop List Panel, editing the fields, and clicking **Modify Stop**.  
+- View transit‑related images in the **Visual Panel** on the right side of the GUI.  
+- Save all route, stop, and operator message data by clicking **Save Data** (writes to `transit.json`).  
+- Load previously saved data by clicking **Load Data** (reads from `transit.json`).  
+
+## Future Improvements
+Given additional development time, I would refactor the UI layer to introduce an abstract base class for all JPanel components (StopListPanel, OperatorMessagePanel, VisualPanel, and ControlPanel).  
+
+Currently, each panel independently handles layout, styling, and component initialization, which leads to duplicated code and inconsistent structure. A shared abstract superclass could provide common behavior—such as standardized layouts, shared helper methods, or unified styling conventions.  
+
+This abstraction would reduce duplication and make UI-wide changes easier to implement. While the current design is simple enough that duplication is not harmful, increasing UI complexity or adding new features would benefit from a more maintainable and consistent architecture.
+
