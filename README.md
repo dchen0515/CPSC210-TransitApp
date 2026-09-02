@@ -34,7 +34,7 @@ This project reflects my long-standing interest in public transit. I have been p
 ## Future Improvements
 Given additional development time, I would refactor the UI layer to introduce an abstract base class for all JPanel components (StopListPanel, OperatorMessagePanel, VisualPanel, and ControlPanel).  
 
-Currently, each panel independently handles layout, styling, and component initialization, which leads to duplicated code and inconsistent structure. A shared abstract superclass could provide common behavior—such as standardized layouts, shared helper methods, or unified styling conventions.  
+Currently, each panel independently handles layout, styling, and component initialization, which leads to duplicated code and inconsistent structure. A shared abstract superclass could provide common behavior, such as standardized layouts, shared helper methods, or unified styling conventions.  
 
 This abstraction would reduce duplication and make UI-wide changes easier to implement. While the current design is simple enough that duplication is not harmful, increasing UI complexity or adding new features would benefit from a more maintainable and consistent architecture.
 
