@@ -1,1 +1,20 @@
+# Compiled class files
 *.class
+
+# IntelliJ project files
+.idea/
+*.iml
+
+# VS Code settings
+.vscode/
+
+# Build directories
+bin/
+out/
+target/
+
+# macOS junk
+.DS_Store
+
+# Logs
+*.log
